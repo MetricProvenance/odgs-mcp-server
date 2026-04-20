@@ -1,0 +1,81 @@
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "odgs-mcp-server"
+version = "0.1.0"
+description = "MCP server for ODGS governance enforcement — validate data, compile regulations, generate S-Certs, detect drift."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "Apache-2.0"}
+authors = [{name = "Metric Provenance", email = "partner@metricprovenance.com"}]
+keywords = [
+    "odgs", "mcp", "governance", "compliance", "ai-safety",
+    "eu-ai-act", "dora", "data-quality", "regulatory", "enforcement",
+    "model-context-protocol", "claude", "copilot", "cursor",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Intended Audience :: Legal Industry",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Office/Business :: Financial",
+]
+
+dependencies = [
+    "mcp>=1.0.0",
+    "odgs>=6.0.0",
+    "httpx>=0.25.0",
+    "pydantic>=2.0.0",
+]
+
+[project.optional-dependencies]
+llm = ["odgs-llm-bridge>=0.1.0"]
+bridges = [
+    "odgs-databricks-bridge>=0.5.0",
+    "odgs-snowflake-bridge>=0.3.0",
+    "odgs-collibra-bridge>=0.3.0",
+]
+all = ["odgs-mcp-server[llm,bridges]"]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "ruff>=0.4.0",
+]
+
+[project.urls]
+Homepage = "https://metricprovenance.com"
+Repository = "https://github.com/MetricProvenance/odgs-mcp-server"
+Documentation = "https://github.com/MetricProvenance/odgs-mcp-server/blob/main/README.md"
+"ODGS Core" = "https://pypi.org/project/odgs/"
+"LLM Bridge" = "https://pypi.org/project/odgs-llm-bridge/"
+"Partner Platform" = "https://platform.metricprovenance.com"
+
+[project.scripts]
+odgs-mcp-server = "odgs_mcp_server.main:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/odgs_mcp_server"]
+
+[tool.hatch.build.targets.wheel.sources]
+"src" = ""
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
