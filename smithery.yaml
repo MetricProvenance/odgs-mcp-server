@@ -1,0 +1,26 @@
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      projectRoot:
+        type: string
+        description: "Path to the ODGS governance project (contains sovereign definitions and rules)"
+      apiKey:
+        type: string
+        description: "ODGS API key for Pro/Enterprise features (certified packs, LLM bridge, drift detection). Get yours at platform.metricprovenance.com"
+      registryUrl:
+        type: string
+        description: "Custom S-Cert registry URL (enterprise only)"
+        default: "https://registry.metricprovenance.com"
+  commandFunction: |-
+    (config) => ({
+      command: 'odgs-mcp-server',
+      args: ['--transport', 'stdio'],
+      env: {
+        ODGS_PROJECT_ROOT: config.projectRoot || '.',
+        ODGS_API_KEY: config.apiKey || '',
+        ODGS_REGISTRY_URL: config.registryUrl || 'https://registry.metricprovenance.com'
+      }
+    })
