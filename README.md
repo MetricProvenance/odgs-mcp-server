@@ -1,6 +1,6 @@
 # Open Data Governance Standard (ODGS) — MCP Server
 
-> **Runtime governance enforcement for any AI agent.**
+> **Deterministic governance enforcement at the AI agent boundary.**
 
 [![Protocol](https://img.shields.io/badge/Protocol-v6.0.3_(Sovereign_Engine)-0055AA)](https://metricprovenance.com/brief)
 [![MCP Server](https://img.shields.io/badge/MCP_Server-v0.2.0-blueviolet)](https://modelcontextprotocol.io/)
@@ -17,52 +17,46 @@
 ---
 
 > [!IMPORTANT]
-> **ODGS MCP Server v0.2.0 — Maturity Diagnostics + Tier-Gated Enforcement**
-> Now delegates `governance_score` to the **`odgs-maturity`** 8-pillar DAMA engine.
-> Pro/Enterprise tools (regulatory compilation, drift detection, catalog sync) are gated
-> by API key. Community tier remains fully free with no account required.
+> **ODGS MCP Server v0.2.0 — Maturity Diagnostics + Certified Pack Access**
+> `governance_score` now delegates to the **`odgs-maturity`** 8-pillar DAMA DMBOK engine.
+> Regulatory compilation, drift detection, and catalog synchronisation require a Certified Pack licence.
+> The community tier — validation, scoring, conformance checking — remains open with no registration.
 
 ---
 
-### 🚀 What's New in v0.2.0
+### What's New in v0.2.0
 
-| Enhancement | Description |
+| Change | Detail |
 |---|---|
-| **📊 `governance_score`** | Now delegates to `odgs-maturity` (8-pillar DAMA DMBOK) when installed. Falls back to built-in heuristic. Scores 0–100 with per-pillar gap analysis. |
-| **AuthGate** | Community / Pro / Enterprise tier gate via API key. 24h disk cache. Offline `workspace.yaml` fallback for air-gapped environments. |
-| **Tier-gated tools** | `compile_regulation`, `check_drift`, `detect_conflicts`, `narrate_audit`, `discover_bindings` (Pro); `sync_catalog`, `harvest_sovereign_rules` (Enterprise). |
-| **`/brief` CTA** | All in-product upgrade prompts consolidated to `metricprovenance.com/brief`. No stale emails or portal links. |
+| **`governance_score`** | Delegates to `odgs-maturity` (8-pillar DAMA DMBOK) when installed; falls back to built-in heuristic. Returns 0–100 score with per-pillar gap analysis. |
+| **AuthGate** | Community / Professional / Enterprise access via API key validation. 24h disk cache; `workspace.yaml` fallback for air-gapped deployments. |
+| **Licensed tools** | `compile_regulation`, `check_drift`, `detect_conflicts`, `narrate_audit`, `discover_bindings` (Professional); `sync_catalog`, `harvest_sovereign_rules` (Enterprise). |
 
-> 💡 **Industry Benchmark:** The European Data Governance Maturity Benchmark 2026 found an average governance maturity of **37.6%** across 99 enterprises — a **62.4% enforcement gap** against regulatory expectation. Run `governance_score` to see where your project stands.
-
----
-
-## Why ODGS MCP?
-
-Every AI agent that touches regulated data needs a compliance conscience. ODGS provides the industry's only open standard that produces **cryptographic audit certificates (S-Certs)** — machine-verifiable proof that governance rules were evaluated at runtime.
-
-This server puts that enforcement capability inside any AI agent's tool context, bridging the deterministic governance engine with probabilistic AI agents.
-
-### 🏢 Enterprise & Public Sector: EU AI Act Compliance
-
-If you are operating a **High-Risk AI System** and require strict liability indemnification under the **EU AI Act (Articles 10 & 12)**, you need cryptographic provenance.
-
-**Metric Provenance** offers the commercial infrastructure for ODGS:
-- **Certified Sovereign Packs:** Pre-compiled, cryptographically signed Ed25519 rule bundles for DORA, EU AI Act, Basel III, and 12 more regulations.
-- **The S-Cert Registry:** An enterprise certificate authority that natively ingests ODGS telemetry to mint immutable, JWS-sealed audit logs.
-
-**Access:** Exclusively through [metricprovenance.com/brief](https://metricprovenance.com/brief).
+> The European Data Governance Maturity Benchmark 2026 recorded an average maturity of **37.6%** across 99 enterprises — a **62.4% gap** against current regulatory expectation. `governance_score` applies the same assessment methodology to your project.
 
 ---
 
-## Features
+## What This Is
 
-- **Runtime Validation:** Validate data payloads against sovereign governance rules in real-time.
-- **Maturity Scoring:** 8-pillar DAMA DMBOK governance assessment with gap analysis and actionable findings.
-- **Flint Bridge Integration (Enterprise):** Allow your agent to harvest, extract, and auto-mint sovereign rules from enterprise catalogs.
-- **LLM Bridge (Pro):** Compile raw legal text (EU AI Act, DORA, GDPR) into enforceable machine rules.
-- **Drift & Conflict Detection:** Automatically detect semantic drift in governance definitions and resolve regulatory contradictions.
-- **Audit Narratives:** Convert cryptic S-Certs into human-readable compliance reports.
+The ODGS MCP Server connects any MCP-compatible AI agent to the ODGS Sovereign Validation Engine. The engine evaluates data operations against governance rules at runtime and produces **S-Certs (Sovereign Certificates)** — cryptographically signed, machine-verifiable records that a governance rule was applied.
+
+This is the bridge between probabilistic AI inference and deterministic governance enforcement.
+
+### EU AI Act & High-Risk AI Systems
+
+Organisations operating High-Risk AI Systems under **EU AI Act Articles 10 and 12** require demonstrable, auditable data governance at the pipeline level. S-Certs provide that audit trail in a format suitable for regulatory submission.
+
+Certified Sovereign Packs and the S-Cert Registry are available through Metric Provenance certified implementation partners. For architectural assessment: [metricprovenance.com/brief](https://metricprovenance.com/brief).
+
+---
+
+## Capabilities
+
+- **Runtime validation:** Data payloads are evaluated against sovereign governance rules at call time; each evaluation produces a signed S-Cert.
+- **Governance maturity scoring:** 8-pillar DAMA DMBOK assessment (0–100) with per-pillar gap analysis, aligned to the European Governance Maturity Benchmark methodology.
+- **Regulatory compilation** *(licensed)*: Converts legislative text — EU AI Act, DORA, GDPR — into validated ODGS rule JSON.
+- **Semantic drift detection** *(licensed)*: Identifies definitional drift between governance artefacts across versions.
+- **Enterprise catalog integration** *(licensed)*: Harvests and mints sovereign rules from Databricks, Snowflake, and Collibra via the Flint Bridge.
 
 ---
 
@@ -121,9 +115,9 @@ Add to `.cursor/mcp.json`:
 ```
 </details>
 
-### Pro & Enterprise Authentication
+### Licensed Tool Access
 
-To unlock regulatory compilation, certified packs, and catalog synchronization, provide your ODGS API key:
+Regulatory compilation, certified packs, and catalog synchronisation require a Certified Pack licence. Provide the issued API key in your client configuration:
 
 ```json
 "env": {
@@ -131,7 +125,7 @@ To unlock regulatory compilation, certified packs, and catalog synchronization, 
   "ODGS_PROJECT_ROOT": "/path/to/your/odgs/project"
 }
 ```
-*Request your API key via [metricprovenance.com/brief](https://metricprovenance.com/brief).*
+*Certified Pack licensing is handled through Metric Provenance partners: [metricprovenance.com/brief](https://metricprovenance.com/brief).*
 
 ---
 
@@ -201,7 +195,7 @@ flowchart TB
 
 ## Certified Regulation Packs
 
-Pre-built, cryptographically signed rule bundles for immediate compliance enforcement:
+Cryptographically signed rule bundles, each mapped to a specific regulatory instrument. Packs are compiled from authoritative legislative text and certified by Metric Provenance.
 
 | Pack | Regulation | Status |
 |:---|:---|:---|
@@ -210,9 +204,9 @@ Pre-built, cryptographically signed rule bundles for immediate compliance enforc
 | **GDPR** | General Data Protection Regulation | ✅ Certified |
 | **CSRD** | Corporate Sustainability Reporting Directive | ✅ Certified |
 | **NIS2** | Network and Information Security Directive | ✅ Certified |
-| **Basel III** | Banking Regulation | ✅ Certified |
+| **Basel III** | Basel Committee on Banking Supervision | ✅ Certified |
 
-*Full catalogue of 15+ packs available via [metricprovenance.com/brief](https://metricprovenance.com/brief). Enterprise certification and licensing handled through Metric Provenance partners.*
+*Full catalogue of 15+ packs. Licensing and deployment via [metricprovenance.com/brief](https://metricprovenance.com/brief).*
 
 ---
 
@@ -229,16 +223,16 @@ Pre-built, cryptographically signed rule bundles for immediate compliance enforc
 
 ## About ODGS
 
-The Open Data Governance Standard is a sovereign enforcement protocol that validates data operations against governance rules at runtime — not retroactively. It produces cryptographic S-Certs (Sovereign Certificates) that serve as machine-verifiable audit trails.
+The Open Data Governance Standard (ODGS) is an open protocol for deterministic data governance enforcement. It is a candidate standard under CEN/CENELEC JTC 25 and has been submitted to NEN ballot N42 (closes May 2026).
 
-- [ODGS Protocol (core)](https://github.com/MetricProvenance/odgs) — `pip install odgs`
-- [ODGS on PyPI](https://pypi.org/project/odgs-mcp-server/)
-- [Research Paper (SSRN)](https://papers.ssrn.com/abstract=6205478)
-- [Sovereign S-Cert Registry](https://metricprovenance.com/brief)
+- [Protocol specification](https://github.com/MetricProvenance/odgs) — `pip install odgs`
+- [PyPI package](https://pypi.org/project/odgs-mcp-server/)
+- [Research paper (SSRN 6205478)](https://papers.ssrn.com/abstract=6205478)
+- [Metric Provenance](https://metricprovenance.com/brief)
 
-## License
+## Licence
 
 Apache 2.0 — see [LICENSE](LICENSE).
 
-The ODGS engine and MCP server are open source. Certified Regulation Packs are commercially licensed.
+The protocol engine and MCP server are open source. Certified Regulation Packs are issued under a commercial licence.
 
