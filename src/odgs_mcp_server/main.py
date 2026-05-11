@@ -53,6 +53,7 @@ def _get_auth() -> AuthGate:
             api_key=cfg.api_key,
             registry_url=cfg.registry_url,
             cache_dir=cfg.cache_dir,
+            project_root=cfg.project_root,
         )
     return _auth
 
@@ -455,7 +456,7 @@ def server_status() -> str:
         "project_root": cfg.project_root,
         "accessible_tools": sorted(accessible_tools),
         "total_tools": len(TOOL_TIERS),
-        "upgrade_url": "https://platform.metricprovenance.com" if auth.tier == "community" else None,
+        "upgrade_url": "https://registry.metricprovenance.com" if auth.tier == "community" else None,
     }
     return json.dumps(status, indent=2)
 
@@ -519,6 +520,7 @@ def main():
         api_key=_config.api_key,
         registry_url=_config.registry_url,
         cache_dir=_config.cache_dir,
+        project_root=_config.project_root,
     )
 
     logger.info(

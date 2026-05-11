@@ -73,7 +73,7 @@ Email **[partner@metricprovenance.com](mailto:partner@metricprovenance.com)** wi
 2. A client use case or sector you have in mind
 3. Your evaluation timeline
 
-Or use the enquiry form at **[platform.metricprovenance.com](https://platform.metricprovenance.com)**.
+Or submit a partner enquiry at **[metricprovenance.com/brief](https://metricprovenance.com/brief)**.
 
 We respond to all partner enquiries within 48 hours.
 
@@ -83,9 +83,9 @@ We respond to all partner enquiries within 48 hours.
 
 If you're an engineer who found ODGS through the CLI or MCP server and want to surface it to your compliance or procurement team, the easiest path is:
 
-1. Download the [Executive Summary PDF](https://platform.metricprovenance.com/executive-summary.pdf)
-2. Forward it to your CDO, CTO, or Chief Compliance Officer with the note: *"We're already running this — here's the commercial certification layer."*
-3. Point them to [platform.metricprovenance.com](https://platform.metricprovenance.com) for a partner briefing
+1. Open [metricprovenance.com/brief](https://metricprovenance.com/brief) — executive brief with PDF download.
+2. Forward the PDF to your CDO, CTO, or Chief Compliance Officer with the note: *"We're already running this — here's the commercial certification layer."*
+3. Use the **Partner Enquiry** button on that page to request an introduction.
 
 ---
 

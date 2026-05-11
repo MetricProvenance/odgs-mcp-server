@@ -2,7 +2,7 @@
 
 > **Runtime governance enforcement for any AI agent.**
 
-[![Protocol](https://img.shields.io/badge/Protocol-v6.0.0_(Sovereign_Engine)-0055AA)](https://platform.metricprovenance.com)
+[![Protocol](https://img.shields.io/badge/Protocol-v6.0.2_(Sovereign_Engine)-0055AA)](https://metricprovenance.com/brief)
 [![MCP](https://img.shields.io/badge/MCP-Compatible-blueviolet)](https://modelcontextprotocol.io/)
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/License-Apache_2.0-lightgrey)](LICENSE)
@@ -10,9 +10,8 @@
 ---
 
 > **For engineers:** See [Quick Start](#quick-start) below.  
-> **For compliance, legal, or procurement teams:** Your organisation may already be running ODGS.  
-> [Request a technical partner briefing →](https://platform.metricprovenance.com#partner-enquiry)  
-> **Consulting or platform partner?** See [PARTNERS.md](PARTNERS.md) for the commercial model.
+> **For compliance and risk officers:** The ODGS engine generates cryptographic audit trails (S-Certs).  
+> **For architectural clearance:** See [Sovereign S-Cert Registry](https://metricprovenance.com/brief) for certified regulatory packs.
 
 ---
 
@@ -93,7 +92,7 @@ To unlock regulatory compilation, certified packs, and catalog synchronization, 
   "ODGS_PROJECT_ROOT": "/path/to/your/odgs/project"
 }
 ```
-*Get your API key at [platform.metricprovenance.com](https://platform.metricprovenance.com).*
+*Provision your API key via the [Sovereign S-Cert Registry](https://metricprovenance.com/brief).*
 
 ---
 
@@ -105,7 +104,7 @@ To unlock regulatory compilation, certified packs, and catalog synchronization, 
 | `validate_payload` | Validate data against ODGS governance rules, produce S-Cert |
 | `validate_batch` | Validate multiple payloads in one call |
 | `list_packs` | List available Certified Regulation Packs |
-| `governance_score` | Score governance maturity (0-100) across 4 categories |
+| `governance_score` | Score governance maturity (0-100) with actionable findings |
 | `conformance_check` | Run ODGS conformance self-check (L1/L2) |
 
 ### Professional (API Key Required)
@@ -172,7 +171,7 @@ Pre-built, cryptographically signed rule bundles for immediate compliance enforc
 | **NIS2** | Network and Information Security Directive | ✅ Certified |
 | **Basel III** | Banking Regulation | ✅ Certified |
 
-*Full catalog of 15+ packs available via [platform.metricprovenance.com](https://platform.metricprovenance.com). For pricing and enterprise licensing, contact [partner@metricprovenance.com](mailto:partner@metricprovenance.com).*
+*Full catalogue of 15+ packs available via the [Sovereign S-Cert Registry](https://metricprovenance.com/brief). For enterprise certification and licensing, consult the registry documentation.*
 
 ---
 
@@ -194,7 +193,7 @@ The Open Data Governance Standard is a sovereign enforcement protocol that valid
 - [ODGS Documentation](https://metricprovenance.com)
 - [ODGS on PyPI](https://pypi.org/project/odgs/)
 - [Research Paper (SSRN)](https://papers.ssrn.com/abstract=6205478)
-- [Partner Platform](https://platform.metricprovenance.com)
+- [Sovereign S-Cert Registry](https://metricprovenance.com/brief)
 
 ## License
 

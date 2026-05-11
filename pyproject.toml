@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "odgs-mcp-server"
-version = "0.1.0"
+version = "0.2.0"
 description = "MCP server for ODGS governance enforcement — validate data, compile regulations, generate S-Certs, detect drift."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -40,12 +40,13 @@ dependencies = [
 
 [project.optional-dependencies]
 llm = ["odgs-llm-bridge>=0.1.0"]
+maturity = ["odgs-maturity>=0.1.0"]
 bridges = [
     "odgs-databricks-bridge>=0.5.0",
     "odgs-snowflake-bridge>=0.3.0",
     "odgs-collibra-bridge>=0.3.0",
 ]
-all = ["odgs-mcp-server[llm,bridges]"]
+all = ["odgs-mcp-server[llm,maturity,bridges]"]
 dev = [
     "pytest>=8.0.0",
     "pytest-asyncio>=0.23.0",
@@ -58,7 +59,7 @@ Repository = "https://github.com/MetricProvenance/odgs-mcp-server"
 Documentation = "https://github.com/MetricProvenance/odgs-mcp-server/blob/main/README.md"
 "ODGS Core" = "https://pypi.org/project/odgs/"
 "LLM Bridge" = "https://pypi.org/project/odgs-llm-bridge/"
-"Partner Platform" = "https://platform.metricprovenance.com"
+"Sovereign Registry" = "https://registry.metricprovenance.com"
 
 [project.scripts]
 odgs-mcp-server = "odgs_mcp_server.main:main"

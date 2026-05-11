@@ -1,8 +1,9 @@
 """
 governance_score — Score a dataset's governance maturity.
 
-Analyzes the ODGS project configuration to produce a 0-100 governance
-maturity score with regulation-specific findings.
+Delegates to the authoritative odgs-maturity 8-pillar scoring engine.
+Falls back to a lightweight built-in assessment if odgs-maturity is
+not installed.
 
 Tier: Community (free)
 """
@@ -25,8 +26,13 @@ def governance_score(
     """
     Compute a governance maturity score for an ODGS project.
 
-    Analyzes the completeness and quality of governance definitions,
-    rules, bindings, and cryptographic signing.
+    Delegates to odgs_maturity.scoring.engine.score_workspace when
+    available (pip install odgs-maturity). This ensures the MCP server
+    and the CLI produce identical, deterministic scores using the
+    authoritative 8-pillar framework.
+
+    Falls back to a lightweight built-in heuristic if the maturity
+    package is not installed.
 
     Args:
         project_root: Path to the ODGS project root.
@@ -34,11 +40,106 @@ def governance_score(
     Returns:
         Dict with:
         - score (int): 0-100 governance maturity score.
+        - level (str): DAMA maturity level label.
         - grade (str): Letter grade (A-F).
         - findings (list): Specific findings with recommendations.
-        - breakdown (dict): Score breakdown by category.
+        - breakdown (dict): Score breakdown by pillar.
+        - engine (str): Which engine produced the score.
     """
     root = Path(project_root)
+
+    # Attempt delegation to authoritative maturity engine
+    try:
+        return _score_via_maturity_engine(root)
+    except ImportError:
+        logger.info(
+            "odgs-maturity not installed; using built-in fallback. "
+            "Install for full 8-pillar assessment: pip install odgs-maturity"
+        )
+        return _score_fallback(root)
+
+
+def _score_via_maturity_engine(root: Path) -> dict[str, Any]:
+    """
+    Delegate scoring to the odgs-maturity package.
+
+    This is the authoritative scoring path. The maturity engine reads
+    the workspace artifacts and produces a deterministic 8-pillar
+    assessment aligned with DAMA DMBOK.
+    """
+    from odgs_maturity.scoring.engine import score_workspace
+    from odgs_maturity.workspace.reader import WorkspaceReader
+
+    reader = WorkspaceReader()
+    snapshot = reader.read(root)
+    result = score_workspace(snapshot)
+
+    # Convert maturity result to MCP tool output format
+    findings = []
+    for pillar, pr in result.pillars.items():
+        for rule in pr.rules:
+            status = "✅" if rule.score >= 1.0 else "⚠️" if rule.score > 0 else "❌"
+            finding = {
+                "category": pillar.display_name,
+                "rule_id": rule.rule_id,
+                "status": status,
+                "message": rule.evidence,
+                "score": rule.percentage,
+            }
+            if rule.score < 1.0:
+                finding["recommendation"] = rule.recommendation
+            findings.append(finding)
+
+    breakdown = {
+        pillar.value: {
+            "name": pillar.display_name,
+            "score": pr.score,
+            "max": 100,
+            "level": pr.level.label,
+            "weight": pillar.weight,
+            "cost_flag": pr.cost_flag.value,
+            "gaps": len(pr.gaps),
+        }
+        for pillar, pr in result.pillars.items()
+    }
+
+    score = round(result.aggregate_score)
+
+    # Map to letter grade for backwards compatibility
+    if score >= 90:
+        grade = "A"
+    elif score >= 75:
+        grade = "B"
+    elif score >= 60:
+        grade = "C"
+    elif score >= 40:
+        grade = "D"
+    else:
+        grade = "F"
+
+    return {
+        "score": score,
+        "grade": grade,
+        "level": result.level.label,
+        "level_value": result.level.value,
+        "findings": findings,
+        "breakdown": breakdown,
+        "project_root": str(root),
+        "engine": "odgs-maturity",
+        "total_rules": result.total_rules,
+        "total_gaps": result.total_gaps,
+        "_odgs_notice": certification_notice(score=score),
+    }
+
+
+def _score_fallback(root: Path) -> dict[str, Any]:
+    """
+    Lightweight fallback scorer when odgs-maturity is not installed.
+
+    This preserves the original 4-category heuristic so the MCP tool
+    remains functional without the full maturity package. However,
+    results will differ from the authoritative engine.
+    """
     findings: list[dict[str, str]] = []
     breakdown: dict[str, dict[str, Any]] = {}
 
@@ -204,5 +305,6 @@ def governance_score(
         "findings": findings,
         "breakdown": breakdown,
         "project_root": str(root),
+        "engine": "fallback (install odgs-maturity for 8-pillar assessment)",
         "_odgs_notice": certification_notice(score=score),
     }

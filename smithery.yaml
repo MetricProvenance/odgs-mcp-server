@@ -9,7 +9,7 @@ startCommand:
         description: "Path to the ODGS governance project (contains sovereign definitions and rules)"
       apiKey:
         type: string
-        description: "ODGS API key for Pro/Enterprise features (certified packs, LLM bridge, drift detection). Get yours at platform.metricprovenance.com"
+        description: "ODGS API key for Pro/Enterprise features (certified packs, LLM bridge, drift detection). Get yours at registry.metricprovenance.com"
       registryUrl:
         type: string
         description: "Custom S-Cert registry URL (enterprise only)"

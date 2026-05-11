@@ -40,10 +40,11 @@ TIER_RANK = {"community": 0, "pro": 1, "enterprise": 2}
 class AuthGate:
     """Validates API keys and controls tool access by tier."""
 
-    def __init__(self, api_key: str | None = None, registry_url: str = "", cache_dir: str = ""):
+    def __init__(self, api_key: str | None = None, registry_url: str = "", cache_dir: str = "", project_root: str = ""):
         self.api_key = api_key
         self.registry_url = registry_url
         self.cache_dir = cache_dir
+        self.project_root = project_root
         self._tier: str | None = None
         self._tier_cached_at: float = 0
         self._cache_ttl = 86400  # 24 hours
@@ -54,6 +55,14 @@ class AuthGate:
         if self._tier and (time.time() - self._tier_cached_at) < self._cache_ttl:
             return self._tier
 
+        # 1. Offline zero-knowledge verification
+        offline_tier = self._validate_offline()
+        if offline_tier and offline_tier != "community":
+            self._tier = offline_tier
+            self._tier_cached_at = time.time()
+            return self._tier
+
+        # 2. Remote API key verification
         if not self.api_key:
             self._tier = "community"
             self._tier_cached_at = time.time()
@@ -86,13 +95,41 @@ class AuthGate:
             f"Your current tier: **{self.tier}**\n\n"
             f"Certified Packs are issued through verified "
             f"Metric Provenance partners.\n\n"
-            f"→ Technical brief for your governance lead: "
-            f"https://www.metricprovenance.com/brief\n"
-            f"→ Partner enquiries: partner@metricprovenance.com\n\n"
+            f"→ Request access and certified pack licensing:\n"
+            f"  https://metricprovenance.com/brief\n\n"
             f"If your organisation already has a licence, set your key:\n"
             f"  export ODGS_API_KEY=sk-odgs-...\n"
             f"  # or in your MCP client config"
         )
+
+    def _validate_offline(self) -> str | None:
+        """Validate offline zero-knowledge license from workspace yaml."""
+        if not self.project_root:
+            return None
+            
+        try:
+            import yaml
+            from odgs_llm.licensing import check_tier, Tier
+            
+            workspace_file = Path(self.project_root) / "odgs-workspace.yaml"
+            if not workspace_file.exists():
+                return None
+                
+            with open(workspace_file, "r") as f:
+                workspace_yaml = yaml.safe_load(f) or {}
+                
+            if check_tier(workspace_yaml, Tier.ENTERPRISE):
+                return "enterprise"
+            if check_tier(workspace_yaml, Tier.PROFESSIONAL):
+                return "pro"  # MCP server uses 'pro' instead of 'professional'
+                
+        except ImportError:
+            # odgs_llm might not be installed or accessible
+            pass
+        except Exception as e:
+            logger.debug(f"Offline validation failed: {e}")
+            
+        return None
 
     def _validate_key_remote(self) -> str:
         """Validate API key against the ODGS registry. Returns tier string."""
