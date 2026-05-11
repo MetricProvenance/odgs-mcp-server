@@ -39,7 +39,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-llm = ["odgs-llm-bridge>=0.1.0"]
+llm = ["odgs-llm-bridge>=0.2.1"]
 maturity = ["odgs-maturity>=0.1.0"]
 bridges = [
     "odgs-databricks-bridge>=0.5.0",
