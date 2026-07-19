@@ -3,7 +3,7 @@
 > **Deterministic governance enforcement at the AI agent boundary.**
 
 [![Protocol](https://img.shields.io/badge/Protocol-v6.0.3_(Sovereign_Engine)-0055AA)](https://metricprovenance.com/pricing)
-[![MCP Server](https://img.shields.io/badge/MCP_Server-v0.2.0-blueviolet)](https://modelcontextprotocol.io/)
+[![MCP Server](https://img.shields.io/badge/MCP_Server-v0.3.0-blueviolet)](https://modelcontextprotocol.io/)
 [![PyPI Downloads](https://img.shields.io/pypi/dm/odgs-mcp-server?label=PyPI%20Downloads&color=blue)](https://pypistats.org/packages/odgs-mcp-server)
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/License-Apache_2.0-lightgrey)](LICENSE)
@@ -17,7 +17,7 @@
 ---
 
 > [!IMPORTANT]
-> **ODGS MCP Server v0.2.0 — Maturity Diagnostics + Certified Pack Access**
+> **ODGS MCP Server v0.3.0 — Maturity Diagnostics + Certified Pack Access**
 > `governance_score` now delegates to the **`odgs-maturity`** 8-pillar DAMA DMBOK engine.
 > Regulatory compilation, drift detection, and catalog synchronisation require a Certified Pack licence.
 > The community tier — validation, scoring, conformance checking — remains open with no registration.
