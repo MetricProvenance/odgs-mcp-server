@@ -194,13 +194,13 @@ class TestListPacks:
         assert "gdpr" in pack_ids
 
     def test_list_packs_includes_purchase_url(self, tmp_path):
-        """Pack listing routes to partner brief, not a SaaS purchase URL."""
+        """Pack listing routes to the self-serve pricing page."""
         from odgs_mcp_server.tools.packs import list_packs
 
         result = list_packs(project_root=str(tmp_path))
-        # Partner-led model: brief_url and licence_note, not SaaS checkout
-        assert "brief_url" in result
-        assert "metricprovenance" in result["brief_url"]
+        # Self-serve model: access_url and licence_note point at /pricing
+        assert "access_url" in result
+        assert "metricprovenance" in result["access_url"]
         assert "licence_note" in result
 
     def test_packs_have_tier_info(self, tmp_path):

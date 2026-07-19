@@ -79,6 +79,81 @@ class TestUpgradeMessage:
         assert "partner" in msg.lower() or "partner@metricprovenance.com" in msg
 
 
+class TestLockoutRegression:
+    """Regression tests for the 24h community-lockout bug.
+
+    A failed or unreachable key validation used to be persisted to the disk
+    cache as 'community', locking licensed users out for the full 24h TTL.
+    Only successful (HTTP 200) validations may be written to disk.
+    """
+
+    def test_network_error_result_is_not_cached_to_disk(self, tmp_path, monkeypatch):
+        import httpx
+
+        def boom(*args, **kwargs):
+            raise httpx.ConnectError("registry unreachable")
+
+        monkeypatch.setattr(httpx, "post", boom)
+        gate = AuthGate(
+            api_key="sk-odgs-test",
+            registry_url="https://registry.example.com",
+            cache_dir=str(tmp_path),
+        )
+        assert gate.tier == "community"  # graceful fallback for this process
+        assert not (tmp_path / ".tier_cache.json").exists()
+
+    def test_http_error_result_is_not_cached_to_disk(self, tmp_path, monkeypatch):
+        import httpx
+
+        class FakeResponse:
+            status_code = 503
+
+        monkeypatch.setattr(httpx, "post", lambda *a, **k: FakeResponse())
+        gate = AuthGate(
+            api_key="sk-odgs-test",
+            registry_url="https://registry.example.com",
+            cache_dir=str(tmp_path),
+        )
+        assert gate.tier == "community"
+        assert not (tmp_path / ".tier_cache.json").exists()
+
+    def test_successful_validation_is_cached_and_recovers_after_outage(self, tmp_path, monkeypatch):
+        import httpx
+
+        # 1. Outage: falls back to community, nothing persisted
+        def boom(*args, **kwargs):
+            raise httpx.ConnectError("registry unreachable")
+
+        monkeypatch.setattr(httpx, "post", boom)
+        gate = AuthGate(
+            api_key="sk-odgs-test",
+            registry_url="https://registry.example.com",
+            cache_dir=str(tmp_path),
+        )
+        assert gate.tier == "community"
+
+        # 2. Registry back up: a fresh gate must validate as pro immediately
+        #    (before the fix, the poisoned disk cache pinned it to community)
+        class FakeResponse:
+            status_code = 200
+
+            @staticmethod
+            def json():
+                return {"tier": "pro"}
+
+        monkeypatch.setattr(httpx, "post", lambda *a, **k: FakeResponse())
+        gate2 = AuthGate(
+            api_key="sk-odgs-test",
+            registry_url="https://registry.example.com",
+            cache_dir=str(tmp_path),
+        )
+        assert gate2.tier == "pro"
+
+        # 3. Successful result IS persisted for the 24h fast path
+        cached = json.loads((tmp_path / ".tier_cache.json").read_text())
+        assert cached["tier"] == "pro"
+
+
 class TestDiskCache:
     """Test tier caching to disk."""
 

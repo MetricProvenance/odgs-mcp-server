@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.3.0 — 2026-07-18
+
+### Fixed (pack delivery)
+
+- **`download_pack` now installs, not just caches.** Purchased bundles are materialized into an engine-bootable layout (`judiciary/standard_data_rules.json`, `sovereign/`, `manifest.json`) under the pack cache, and the tool returns the `project_root` to validate against. Previously the bundle was written as a single wrapped JSON file the validation engine could never read.
+
+### Fixed
+
+- **24h community-lockout bug** — A failed or unreachable API-key validation (network error or non-200 registry response) was persisted to the disk tier cache as `community`, locking licensed Pro/Enterprise users out of paid tools for the full 24h cache TTL. Failed validations are no longer written to disk; only successful (HTTP 200) validations are cached. Added regression tests covering network errors, HTTP errors, and recovery after an outage.
+- **Installable `[bridges]` extra** — `pip install odgs-mcp-server[bridges]` was unresolvable: it pinned `odgs-databricks-bridge>=0.5.0`, but the latest published version is 0.4.x. All three bridge pins are now `>=0.4.0`.
+- **Stale test** — `test_list_packs_includes_purchase_url` asserted a `brief_url` key that `list_packs` no longer returns (it returns `access_url`).
+
+### Changed
+
+- Upsell/licensing links now point to the self-serve pricing page (`metricprovenance.com/pricing`) instead of the partner brief (`/brief`), in the upgrade message, the community assessment notice, and the `list_packs` output.
+- Development Status classifier raised from Alpha to Beta.
+
+---
+
 ## v0.2.0 — 2026-05-03
 
 Modular scoring architecture and expanded test coverage.

@@ -76,9 +76,14 @@ class AuthGate:
             return self._tier
 
         # Validate against registry
-        self._tier = self._validate_key_remote()
+        tier, validated = self._validate_key_remote()
+        self._tier = tier
         self._tier_cached_at = time.time()
-        self._write_cached_tier(self._tier)
+        # Only persist tiers that came from a successful (HTTP 200) validation.
+        # Caching a 'community' result from a failed or unreachable validation
+        # would lock paying users out for the full cache TTL (24h).
+        if validated:
+            self._write_cached_tier(self._tier)
         return self._tier
 
     def check_access(self, tool_name: str) -> bool:
@@ -96,7 +101,7 @@ class AuthGate:
             f"Certified Packs are issued through verified "
             f"Metric Provenance partners.\n\n"
             f"→ Request access and certified pack licensing:\n"
-            f"  https://metricprovenance.com/brief\n\n"
+            f"  https://metricprovenance.com/pricing\n\n"
             f"If your organisation already has a licence, set your key:\n"
             f"  export ODGS_API_KEY=sk-odgs-...\n"
             f"  # or in your MCP client config"
@@ -131,17 +136,23 @@ class AuthGate:
             
         return None
 
-    def _validate_key_remote(self) -> str:
-        """Validate API key against the ODGS registry. Returns tier string."""
+    def _validate_key_remote(self) -> tuple[str, bool]:
+        """Validate API key against the ODGS registry.
+
+        Returns:
+            (tier, validated) — ``validated`` is True only when the registry
+            answered with HTTP 200. A failed or unreachable validation returns
+            ("community", False) so the result is never persisted to disk.
+        """
         if not self.registry_url or not self.api_key:
-            return "community"
+            return "community", False
 
         try:
             import httpx
 
             # Always ensure trailing slash is stripped from registry_url
             url = self.registry_url.rstrip('/')
-            
+
             resp = httpx.post(
                 f"{url}/api/v1/validate-key",
                 json={"api_key": self.api_key},
@@ -151,13 +162,13 @@ class AuthGate:
                 data = resp.json()
                 tier = data.get("tier", "community")
                 logger.info("API key validated: tier=%s", tier)
-                return tier
+                return tier, True
             else:
                 logger.warning("Key validation failed: HTTP %s", resp.status_code)
-                return "community"
+                return "community", False
         except Exception as e:
             logger.warning("Key validation failed (network): %s — falling back to community", e)
-            return "community"
+            return "community", False
 
     def _cache_path(self) -> Path | None:
         """Path to the tier cache file."""

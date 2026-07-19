@@ -114,8 +114,8 @@ def list_packs(
         "packs": packs,
         "total": len(packs),
         "installed": sum(1 for p in packs if p["installed"]),
-        "access_url": "https://metricprovenance.com/brief",
-        "licence_note": "Certified Packs are issued via Metric Provenance partners. To request access, visit metricprovenance.com/brief",
+        "access_url": "https://metricprovenance.com/pricing",
+        "licence_note": "Certified Packs are issued via Metric Provenance partners. To request access, visit metricprovenance.com/pricing",
     }
 
 
@@ -161,19 +161,60 @@ def download_pack(
         
         if resp.status_code == 200:
             pack_data = resp.json()
-            
+
             # Save to cache
             cache_path = Path(cache_dir) / "packs" / pack_id
             cache_path.mkdir(parents=True, exist_ok=True)
-            
-            # Write rule definition files
+
+            # Raw bundle (manifest + signature) for provenance/verification
             pack_file = cache_path / "rules.json"
             pack_file.write_text(json.dumps(pack_data, indent=2))
-            
+
+            # v0.3.0: materialize an ENGINE-BOOTABLE project layout so the
+            # purchased rules are actually usable — previously the bundle was
+            # cached but never readable by the validation engine.
+            engine_ready = False
+            if isinstance(pack_data, dict) and pack_data.get("content") == "bundle":
+                rules = pack_data.get("rules") or []
+                if rules:
+                    judiciary = cache_path / "judiciary"
+                    judiciary.mkdir(parents=True, exist_ok=True)
+                    (judiciary / "standard_data_rules.json").write_text(
+                        json.dumps(rules, indent=2)
+                    )
+                    engine_ready = True
+                for relpath, content in (pack_data.get("sovereign") or {}).items():
+                    # Guard against path traversal from a hostile bundle
+                    dest = (cache_path / "sovereign" / relpath).resolve()
+                    if str(dest).startswith(str((cache_path / "sovereign").resolve())):
+                        dest.parent.mkdir(parents=True, exist_ok=True)
+                        dest.write_text(
+                            content if isinstance(content, str) else json.dumps(content, indent=2)
+                        )
+                manifest = pack_data.get("manifest")
+                if manifest:
+                    (cache_path / "manifest.json").write_text(
+                        manifest if isinstance(manifest, str) else json.dumps(manifest, indent=2)
+                    )
+
+            if engine_ready:
+                return {
+                    "success": True,
+                    "pack_id": pack_id,
+                    "engine_ready": True,
+                    "project_root": str(cache_path),
+                    "message": (
+                        f"Pack {pack_id} installed to {cache_path} in engine-ready layout. "
+                        f"Validate against it by passing project_root='{cache_path}' to "
+                        f"validate_payload, or set ODGS_PROJECT_ROOT to that path "
+                        f"(or copy judiciary/ and sovereign/ into your own project)."
+                    ),
+                }
             return {
-                "success": True, 
+                "success": True,
                 "pack_id": pack_id,
-                "message": f"Successfully downloaded pack {pack_id} to {cache_path}"
+                "engine_ready": False,
+                "message": f"Downloaded pack metadata for {pack_id} to {cache_path} (no rule bundle in response).",
             }
         elif resp.status_code == 404:
             return {"success": False, "error": f"Pack {pack_id} not found or not entitled."}

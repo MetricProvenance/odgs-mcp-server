@@ -2,7 +2,7 @@
 
 > **Deterministic governance enforcement at the AI agent boundary.**
 
-[![Protocol](https://img.shields.io/badge/Protocol-v6.0.3_(Sovereign_Engine)-0055AA)](https://metricprovenance.com/brief)
+[![Protocol](https://img.shields.io/badge/Protocol-v6.0.3_(Sovereign_Engine)-0055AA)](https://metricprovenance.com/pricing)
 [![MCP Server](https://img.shields.io/badge/MCP_Server-v0.2.0-blueviolet)](https://modelcontextprotocol.io/)
 [![PyPI Downloads](https://img.shields.io/pypi/dm/odgs-mcp-server?label=PyPI%20Downloads&color=blue)](https://pypistats.org/packages/odgs-mcp-server)
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
@@ -12,7 +12,7 @@
 
 > **For engineers:** See [Quick Start](#quick-start) below.  
 > **For compliance and risk officers:** The ODGS engine generates cryptographic audit trails (S-Certs).  
-> **For architectural clearance and certified packs:** [metricprovenance.com/brief](https://metricprovenance.com/brief)
+> **For architectural clearance and certified packs:** [metricprovenance.com/pricing](https://metricprovenance.com/pricing)
 
 ---
 
@@ -46,7 +46,7 @@ This is the bridge between probabilistic AI inference and deterministic governan
 
 Organisations operating High-Risk AI Systems under **EU AI Act Articles 10 and 12** require demonstrable, auditable data governance at the pipeline level. S-Certs provide that audit trail in a format suitable for regulatory submission.
 
-Certified Sovereign Packs and the S-Cert Registry are available through Metric Provenance certified implementation partners. For architectural assessment: [metricprovenance.com/brief](https://metricprovenance.com/brief).
+Certified Sovereign Packs and the S-Cert Registry are available through Metric Provenance certified implementation partners. For architectural assessment: [metricprovenance.com/pricing](https://metricprovenance.com/pricing).
 
 ---
 
@@ -125,7 +125,16 @@ Regulatory compilation, certified packs, and catalog synchronisation require a C
   "ODGS_PROJECT_ROOT": "/path/to/your/odgs/project"
 }
 ```
-*Certified Pack licensing is handled through Metric Provenance partners: [metricprovenance.com/brief](https://metricprovenance.com/brief).*
+**Licences are self-serve** — buy at [metricprovenance.com/pricing](https://metricprovenance.com/pricing) and your key is emailed on purchase:
+
+| Tier | Price | Includes |
+|:---|:---|:---|
+| **Community** | Free | `validate_payload`, `governance_score`, `list_packs`, `conformance_check` — no registration |
+| **Team** | €990/yr | One certified regulation pack, signed + updated, plus all Professional tools |
+| **Professional** | €2,490/yr | All certified packs, priority re-signing on regulatory change |
+| **Consultant** | €4,990/yr | Professional + white-label / client-deliverable rights |
+
+*Enterprise deployments (Sovereign CA nodes, `sync_catalog`, `harvest_sovereign_rules`) via [certified partners](https://metricprovenance.com/pricing).*
 
 ---
 
@@ -206,7 +215,7 @@ Cryptographically signed rule bundles, each mapped to a specific regulatory inst
 | **NIS2** | Network and Information Security Directive | ✅ Certified |
 | **Basel III** | Basel Committee on Banking Supervision | ✅ Certified |
 
-*Full catalogue of 15+ packs. Licensing and deployment via [metricprovenance.com/brief](https://metricprovenance.com/brief).*
+*Full catalogue of 15+ packs. Licensing and deployment via [metricprovenance.com/pricing](https://metricprovenance.com/pricing).*
 
 ---
 
@@ -223,12 +232,12 @@ Cryptographically signed rule bundles, each mapped to a specific regulatory inst
 
 ## About ODGS
 
-The Open Data Governance Standard (ODGS) is an open protocol for deterministic data governance enforcement. It is a candidate standard under CEN/CENELEC JTC 25 and has been submitted to NEN ballot N42 (closes May 2026).
+The Open Data Governance Standard (ODGS) is an open protocol for deterministic data governance enforcement. It cleared the NEN N42 ballot (May 2026) and is approved as a Working Draft; NEN is formally submitting the New Work Item Proposal to CEN/CENELEC JTC 25.
 
 - [Protocol specification](https://github.com/MetricProvenance/odgs) — `pip install odgs`
 - [PyPI package](https://pypi.org/project/odgs-mcp-server/)
 - [Research paper (SSRN 6205478)](https://papers.ssrn.com/abstract=6205478)
-- [Metric Provenance](https://metricprovenance.com/brief)
+- [Metric Provenance](https://metricprovenance.com/pricing)
 
 ## Licence
 
