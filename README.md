@@ -10,7 +10,7 @@
 
 ---
 
-> **For engineers:** See [Quick Start](#quick-start) below.  
+> **For engineers:** See [Quick Start](#quick-start) below, or the guided walkthrough at [metricprovenance.com/start](https://www.metricprovenance.com/start).  
 > **For compliance and risk officers:** The ODGS engine generates cryptographic audit trails (S-Certs).  
 > **For architectural clearance and certified packs:** [metricprovenance.com/pricing](https://metricprovenance.com/pricing)
 
