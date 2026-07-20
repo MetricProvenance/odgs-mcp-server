@@ -22,6 +22,7 @@ logger = logging.getLogger(__name__)
 
 def governance_score(
     project_root: str,
+    tier: str = "community",
 ) -> dict[str, Any]:
     """
     Compute a governance maturity score for an ODGS project.
@@ -36,6 +37,8 @@ def governance_score(
 
     Args:
         project_root: Path to the ODGS project root.
+        tier: Caller's resolved tier — suppresses the community upsell notice
+              for Pro/Enterprise callers who already have certified access.
 
     Returns:
         Dict with:
@@ -50,16 +53,16 @@ def governance_score(
 
     # Attempt delegation to authoritative maturity engine
     try:
-        return _score_via_maturity_engine(root)
+        return _score_via_maturity_engine(root, tier=tier)
     except ImportError:
         logger.info(
             "odgs-maturity not installed; using built-in fallback. "
             "Install for full 8-pillar assessment: pip install odgs-maturity"
         )
-        return _score_fallback(root)
+        return _score_fallback(root, tier=tier)
 
 
-def _score_via_maturity_engine(root: Path) -> dict[str, Any]:
+def _score_via_maturity_engine(root: Path, tier: str = "community") -> dict[str, Any]:
     """
     Delegate scoring to the odgs-maturity package.
 
@@ -117,7 +120,7 @@ def _score_via_maturity_engine(root: Path) -> dict[str, Any]:
     else:
         grade = "F"
 
-    return {
+    out = {
         "score": score,
         "grade": grade,
         "level": result.level.label,
@@ -128,11 +131,14 @@ def _score_via_maturity_engine(root: Path) -> dict[str, Any]:
         "engine": "odgs-maturity",
         "total_rules": result.total_rules,
         "total_gaps": result.total_gaps,
-        "_odgs_notice": certification_notice(score=score),
     }
+    notice = certification_notice(score=score, tier=tier)
+    if notice:
+        out["_odgs_notice"] = notice
+    return out
 
 
-def _score_fallback(root: Path) -> dict[str, Any]:
+def _score_fallback(root: Path, tier: str = "community") -> dict[str, Any]:
     """
     Lightweight fallback scorer when odgs-maturity is not installed.
 
@@ -299,12 +305,15 @@ def _score_fallback(root: Path) -> dict[str, Any]:
     else:
         grade = "F"
 
-    return {
+    out = {
         "score": score,
         "grade": grade,
         "findings": findings,
         "breakdown": breakdown,
         "project_root": str(root),
         "engine": "fallback (install odgs-maturity for 8-pillar assessment)",
-        "_odgs_notice": certification_notice(score=score),
     }
+    notice = certification_notice(score=score, tier=tier)
+    if notice:
+        out["_odgs_notice"] = notice
+    return out

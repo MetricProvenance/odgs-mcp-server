@@ -5,7 +5,7 @@ from __future__ import annotations
 import datetime
 
 
-def certification_notice(score: int | None = None) -> str:
+def certification_notice(score: int | None = None, tier: str = "community") -> str | None:
     """
     Return a commercial certification notice to append to community tool outputs.
 
@@ -14,13 +14,21 @@ def certification_notice(score: int | None = None) -> str:
     visible to engineers — giving them something concrete to share with their
     compliance or procurement teams.
 
+    Only shown to community-tier callers. A caller with a validated Pro or
+    Enterprise licence has already bought certified pack access — telling them
+    they need a partner licence they've already paid for is wrong and confusing.
+
     Args:
         score: Optional governance score (0-100). If below 80, the notice
                adds a specific call-to-action about material compliance gaps.
+        tier: The caller's resolved tier ("community", "pro", "enterprise").
 
     Returns:
-        A multi-line notice string.
+        A multi-line notice string, or None if the caller is not community tier.
     """
+    if tier != "community":
+        return None
+
     ts = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     base = (
         "\n"

@@ -207,7 +207,13 @@ def download_pack(
                         f"Pack {pack_id} installed to {cache_path} in engine-ready layout. "
                         f"Validate against it by passing project_root='{cache_path}' to "
                         f"validate_payload, or set ODGS_PROJECT_ROOT to that path "
-                        f"(or copy judiciary/ and sovereign/ into your own project)."
+                        f"(or copy judiciary/ and sovereign/ into your own project). "
+                        f"Note: the pack ships the rules themselves (judiciary/, sovereign/); "
+                        f"validate_payload also needs your own legislative/ontology_graph.json "
+                        f"and executive/context_bindings.json to bind these rules to your "
+                        f"process URNs — those are project-specific and not part of the pack. "
+                        f"A minimal ontology_graph.json is just {{\"graph_edges\": []}}; "
+                        f"context_bindings.json maps a process_urn to the rule urns it enforces."
                     ),
                 }
             return {

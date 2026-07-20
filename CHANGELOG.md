@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.3.1 — 2026-07-20
+
+### Fixed (tier resolution)
+
+- **Disk-cached tier is now bound to the API key that produced it.** Previously, any non-empty API key — a typo, an expired key, a revoked key — could inherit whichever tier was last successfully validated on that machine, for up to the 24h cache TTL, because the cache was only checked for freshness, not for which key wrote it. Only a completely absent key correctly resolved to `community`. The disk cache now stores a hash of the validating key and refuses to return a cached tier unless the current key matches it exactly. Legitimate repeat use of the same key is unaffected — the 24h fast path still applies. Added regression tests covering key mismatch, absent-key, and same-key cache-hit cases.
+- **Community upsell notice no longer shown to Pro/Enterprise callers.** The informational notice appended to `validate_payload` and `governance_score` output ("your organization needs a certified licence...") was shown regardless of the caller's actual tier, including to callers with a validated paid licence. It's now suppressed once a Pro or Enterprise tier resolves.
+- **`download_pack`'s success message now explains the two project-specific files** (`legislative/ontology_graph.json`, `executive/context_bindings.json`) a downloaded pack still needs before `validate_payload` will enforce it — these bind the pack's rules to your own process URNs and aren't part of the pack itself.
+
+### Docs
+
+- Removed forward-looking standardization-progress commentary from the README and PARTNERS.md; the standard and the software are two different things and this repo's docs should describe the latter.
+- Protocol badge and prose brought current to the `odgs` 6.0.5 release.
+
 ## v0.3.0 — 2026-07-18
 
 ### Fixed (pack delivery)

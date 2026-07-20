@@ -2,8 +2,8 @@
 
 > **Deterministic governance enforcement at the AI agent boundary.**
 
-[![Protocol](https://img.shields.io/badge/Protocol-v6.0.3_(Sovereign_Engine)-0055AA)](https://metricprovenance.com/pricing)
-[![MCP Server](https://img.shields.io/badge/MCP_Server-v0.3.0-blueviolet)](https://modelcontextprotocol.io/)
+[![Protocol](https://img.shields.io/badge/Protocol-v6.0.5_(Sovereign_Engine)-0055AA)](https://metricprovenance.com/pricing)
+[![MCP Server](https://img.shields.io/badge/MCP_Server-v0.3.1-blueviolet)](https://modelcontextprotocol.io/)
 [![PyPI Downloads](https://img.shields.io/pypi/dm/odgs-mcp-server?label=PyPI%20Downloads&color=blue)](https://pypistats.org/packages/odgs-mcp-server)
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/License-Apache_2.0-lightgrey)](LICENSE)
@@ -17,14 +17,14 @@
 ---
 
 > [!IMPORTANT]
-> **ODGS MCP Server v0.3.0 — Maturity Diagnostics + Certified Pack Access**
+> **ODGS MCP Server v0.3.1 — Maturity Diagnostics + Certified Pack Access**
 > `governance_score` now delegates to the **`odgs-maturity`** 8-pillar DAMA DMBOK engine.
 > Regulatory compilation, drift detection, and catalog synchronisation require a Certified Pack licence.
 > The community tier — validation, scoring, conformance checking — remains open with no registration.
 
 ---
 
-### What's New in v0.2.0
+### Core Capabilities
 
 | Change | Detail |
 |---|---|
@@ -232,7 +232,7 @@ Cryptographically signed rule bundles, each mapped to a specific regulatory inst
 
 ## About ODGS
 
-The Open Data Governance Standard (ODGS) is an open protocol for deterministic data governance enforcement. It cleared the NEN N42 ballot (May 2026) and is approved as a Working Draft; NEN is formally submitting the New Work Item Proposal to CEN/CENELEC JTC 25.
+The Open Data Governance Standard (ODGS) is an open protocol for deterministic data governance enforcement. ODGS is on a path toward formal standardization.
 
 - [Protocol specification](https://github.com/MetricProvenance/odgs) — `pip install odgs`
 - [PyPI package](https://pypi.org/project/odgs-mcp-server/)

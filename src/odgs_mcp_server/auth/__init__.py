@@ -9,6 +9,7 @@ Tiers:
 
 from __future__ import annotations
 
+import hashlib
 import json
 import logging
 import time
@@ -177,22 +178,37 @@ class AuthGate:
         p = Path(self.cache_dir) / ".tier_cache.json"
         return p
 
+    def _key_hash(self) -> str | None:
+        """Stable hash of the current API key, used to bind cache entries to it."""
+        if not self.api_key:
+            return None
+        return hashlib.sha256(self.api_key.encode("utf-8")).hexdigest()
+
     def _read_cached_tier(self) -> str | None:
-        """Read cached tier from disk if fresh enough."""
+        """
+        Read cached tier from disk if fresh enough AND the cache was written for
+        this exact API key. A cached tier must never be returned for a different
+        (or absent, or invalid) key than the one that produced it — otherwise an
+        expired/revoked/garbage key would silently inherit a prior key's tier
+        for up to the cache TTL.
+        """
         path = self._cache_path()
         if not path or not path.exists():
             return None
         try:
             data = json.loads(path.read_text())
             cached_at = data.get("cached_at", 0)
-            if (time.time() - cached_at) < self._cache_ttl:
-                return data.get("tier")
+            if (time.time() - cached_at) >= self._cache_ttl:
+                return None
+            if data.get("api_key_hash") != self._key_hash():
+                return None
+            return data.get("tier")
         except Exception:
             pass
         return None
 
     def _write_cached_tier(self, tier: str) -> None:
-        """Persist tier to disk cache."""
+        """Persist tier to disk cache, bound to the key that produced it."""
         path = self._cache_path()
         if not path:
             return
@@ -201,6 +217,7 @@ class AuthGate:
             path.write_text(json.dumps({
                 "tier": tier,
                 "cached_at": time.time(),
+                "api_key_hash": self._key_hash(),
                 "api_key_prefix": self.api_key[:8] + "..." if self.api_key else None,
             }))
         except Exception as e:

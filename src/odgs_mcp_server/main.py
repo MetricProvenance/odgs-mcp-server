@@ -102,6 +102,7 @@ def validate_payload(
         project_root=root,
         required_integrity_hash=required_integrity_hash,
         override_token=override_token,
+        tier=_get_auth().tier,
     )
     return json.dumps(result, indent=2, default=str)
 
@@ -211,7 +212,7 @@ def governance_score(
     from odgs_mcp_server.tools.score import governance_score as _score
 
     root = project_root or _get_config().project_root
-    result = _score(project_root=root)
+    result = _score(project_root=root, tier=_get_auth().tier)
     return json.dumps(result, indent=2, default=str)
 
 

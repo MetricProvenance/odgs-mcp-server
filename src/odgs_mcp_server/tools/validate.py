@@ -25,6 +25,7 @@ def validate_payload(
     project_root: str,
     required_integrity_hash: str | None = None,
     override_token: str | None = None,
+    tier: str = "community",
 ) -> dict[str, Any]:
     """
     Validate a data payload against ODGS governance rules.
@@ -35,6 +36,8 @@ def validate_payload(
         project_root: Path to the ODGS project root containing governance definitions.
         required_integrity_hash: Optional sovereign handshake hash for tamper detection.
         override_token: Optional token to override SOFT_STOP rules.
+        tier: Caller's resolved tier — suppresses the community upsell notice
+              for Pro/Enterprise callers who already have certified access.
 
     Returns:
         A dict with:
@@ -71,7 +74,7 @@ def validate_payload(
             override_token=override_token,
         )
 
-        return {
+        result = {
             "valid": True,
             "verdict": "APPROVED",
             "violations": [],
@@ -82,11 +85,14 @@ def validate_payload(
                 "note": "Full S-Cert written to sovereign_audit.log",
             },
             "error": None,
-            "_odgs_notice": certification_notice(),
         }
+        notice = certification_notice(tier=tier)
+        if notice:
+            result["_odgs_notice"] = notice
+        return result
 
     except ProcessBlockedException as e:
-        return {
+        result = {
             "valid": False,
             "verdict": "BLOCKED",
             "violations": [str(e)],
@@ -97,8 +103,11 @@ def validate_payload(
                 "note": "Full S-Cert written to sovereign_audit.log",
             },
             "error": None,
-            "_odgs_notice": certification_notice(),
         }
+        notice = certification_notice(tier=tier)
+        if notice:
+            result["_odgs_notice"] = notice
+        return result
 
     except Exception as e:
         logger.error("Validation error: %s", traceback.format_exc())

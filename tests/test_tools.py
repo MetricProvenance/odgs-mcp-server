@@ -95,6 +95,16 @@ class TestFallbackScorer:
         result = _score_fallback(tmp_path)
         assert "_odgs_notice" in result
 
+    def test_notice_absent_for_pro_tier(self, tmp_path):
+        """A caller with a validated Pro/Enterprise licence has already bought
+        certified access — the community upsell notice must not appear."""
+        result = _score_fallback(tmp_path, tier="pro")
+        assert "_odgs_notice" not in result
+
+    def test_notice_absent_for_enterprise_tier(self, tmp_path):
+        result = _score_fallback(tmp_path, tier="enterprise")
+        assert "_odgs_notice" not in result
+
     def test_project_root_is_echoed(self, tmp_path):
         result = _score_fallback(tmp_path)
         assert result["project_root"] == str(tmp_path)

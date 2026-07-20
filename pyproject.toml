@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "odgs-mcp-server"
-version = "0.3.0"
+version = "0.3.1"
 description = "MCP server for ODGS governance enforcement — validate data, compile regulations, generate S-Certs, detect drift."
 readme = "README.md"
 requires-python = ">=3.10"

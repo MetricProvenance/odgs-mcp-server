@@ -188,3 +188,44 @@ class TestDiskCache:
         gate = AuthGate(api_key=None, cache_dir="")
         gate._write_cached_tier("pro")  # Should not raise
         assert gate._read_cached_tier() is None
+
+
+class TestTierCacheKeyBinding:
+    """Regression tests: a cached tier must never leak to a different API key.
+
+    Before the fix, `_read_cached_tier` only checked the cache's freshness
+    (24h TTL), never whether it was written for the key currently presented.
+    Any non-empty key — garbage, expired, revoked, a typo — inherited the
+    last successfully-validated tier on that machine for up to 24h, because
+    only the explicit "no key at all" path bypassed the disk cache. This
+    silently granted pro/enterprise access to the wrong caller.
+    """
+
+    def test_garbage_key_does_not_inherit_a_different_keys_cached_pro_tier(self, tmp_path):
+        real_key_gate = AuthGate(api_key="sk-odgs-real-pro-key", cache_dir=str(tmp_path))
+        real_key_gate._write_cached_tier("pro")
+
+        garbage_gate = AuthGate(api_key="totally-different-garbage", cache_dir=str(tmp_path))
+        assert garbage_gate._read_cached_tier() is None
+
+    def test_same_key_still_hits_the_cache(self, tmp_path):
+        gate = AuthGate(api_key="sk-odgs-real-pro-key", cache_dir=str(tmp_path))
+        gate._write_cached_tier("pro")
+
+        gate2 = AuthGate(api_key="sk-odgs-real-pro-key", cache_dir=str(tmp_path))
+        assert gate2._read_cached_tier() == "pro"
+
+    def test_empty_key_does_not_inherit_cached_pro_tier(self, tmp_path):
+        real_key_gate = AuthGate(api_key="sk-odgs-real-pro-key", cache_dir=str(tmp_path))
+        real_key_gate._write_cached_tier("pro")
+
+        no_key_gate = AuthGate(api_key=None, cache_dir=str(tmp_path))
+        assert no_key_gate._read_cached_tier() is None
+        assert no_key_gate.tier == "community"
+
+    def test_cache_written_by_no_key_is_not_read_by_a_real_key(self, tmp_path):
+        no_key_gate = AuthGate(api_key=None, cache_dir=str(tmp_path))
+        no_key_gate._write_cached_tier("community")
+
+        real_key_gate = AuthGate(api_key="sk-odgs-real-pro-key", cache_dir=str(tmp_path))
+        assert real_key_gate._read_cached_tier() is None

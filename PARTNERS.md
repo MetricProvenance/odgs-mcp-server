@@ -7,12 +7,7 @@
 
 ## The Model (Plain English)
 
-| Revenue Type | Goes To |
-|---|---|
-| Implementation, integration, consulting | **The Partner — 100%** |
-| Certified Pack licences + S-Cert issuance | **Metric Provenance — 100%** |
-
-**Zero channel conflict.** Partners own the client relationship and all delivery revenue. Metric Provenance earns on the certified IP layer only. There is no scenario where we compete with a partner for a client engagement.
+Partners own the client relationship and all delivery revenue — implementation, integration, and consulting work is entirely theirs. Metric Provenance licenses the certified IP layer (Certified Pack licences and S-Cert issuance) directly. There is no scenario where we compete with a partner for a client engagement.
 
 ---
 
@@ -37,7 +32,7 @@ You're deploying data platforms into regulated environments. ODGS integrates nat
 - **S-Cert Registry access** — your clients' deployments are registered and verifiable
 - **Technical briefing + onboarding** (typically 2 sessions, remote)
 - **Delivery documentation** — integration guides, compliance narratives, client-facing collateral
-- **Named listing** in the Metric Provenance partner directory (rolling out Q3 2026)
+- **Named listing** in the Metric Provenance partner directory
 - **Priority support** for partner-led client escalations
 
 ---
@@ -59,9 +54,7 @@ Full catalogue of 15+ packs available on request.
 
 ## Current Programme Status
 
-We onboard a small cohort of partners each quarter to maintain quality of technical support and onboarding. 
-
-**Q2/Q3 2026 cohort: accepting applications.**
+We onboard a small cohort of partners at a time to maintain quality of technical support and onboarding, and are currently accepting applications.
 
 ---
 
