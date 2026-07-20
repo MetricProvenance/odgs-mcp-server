@@ -1,0 +1,37 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.metricprovenance/odgs-mcp-server",
+  "description": "ODGS governance enforcement — validation, regulation compilation, drift detection, signed S-Certs.",
+  "repository": {
+    "url": "https://github.com/MetricProvenance/odgs-mcp-server",
+    "source": "github"
+  },
+  "version": "0.3.1",
+  "websiteUrl": "https://www.metricprovenance.com/start",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "odgs-mcp-server",
+      "version": "0.3.1",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "ODGS_PROJECT_ROOT",
+          "description": "Path to the ODGS project root containing governance definitions (judiciary/, legislative/, executive/). Defaults to the current working directory.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string"
+        },
+        {
+          "name": "ODGS_API_KEY",
+          "description": "Metric Provenance licence key for Pro/Enterprise tier tools (compile_regulation, check_drift, detect_conflicts, narrate_audit, discover_bindings, download_pack). Omit for community-tier access (validate_payload, governance_score, list_packs, conformance_check).",
+          "isRequired": false,
+          "isSecret": true,
+          "format": "string"
+        }
+      ]
+    }
+  ]
+}
