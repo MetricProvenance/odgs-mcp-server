@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.3.2 — 2026-07-20
+
+### Docs
+
+- Added the `mcp-name: com.metricprovenance/odgs-mcp-server` ownership marker required by the official MCP registry to verify this PyPI package publishes under the domain-verified namespace. No functional changes.
+
 ## v0.3.1 — 2026-07-20
 
 ### Fixed (tier resolution)
