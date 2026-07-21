@@ -32,6 +32,11 @@ mcp = FastMCP(
         f"Version: {__version__}"
     ),
 )
+# FastMCP's constructor has no `version` kwarg; it leaves the underlying
+# low-level Server's `version` unset, which makes the SDK report its own
+# package version (e.g. "1.28.1") as serverInfo.version in the initialize
+# handshake instead of odgs-mcp-server's actual version. Set it directly.
+mcp._mcp_server.version = __version__
 
 # Global state — initialized in main()
 _config: ServerConfig | None = None

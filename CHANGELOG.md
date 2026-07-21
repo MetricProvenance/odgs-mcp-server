@@ -1,8 +1,14 @@
 # Changelog
 
-## [Unreleased]
+## v0.3.3 — 2026-07-21
 
-- Add Dockerfile for Glama automated checks. Repo-level addition only — not part of the published PyPI package, no version bump.
+### Fixed
+
+- **`serverInfo.version` in the MCP `initialize` handshake now reports the actual package version** (e.g. `0.3.3`) instead of the underlying `mcp` SDK's own version (e.g. `1.28.1`). `FastMCP`'s constructor has no `version` kwarg, so the low-level `Server`'s `version` attribute was left unset and the SDK silently fell back to reporting itself. A client introspecting the handshake had no way to tell which odgs-mcp-server version it was actually talking to.
+
+### Repo
+
+- Added a `Dockerfile` (Glama automated-check prerequisite) and `glama.json` (claim prerequisite). Neither is part of the published PyPI package.
 
 ## v0.3.2 — 2026-07-20
 

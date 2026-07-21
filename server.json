@@ -6,13 +6,13 @@
     "url": "https://github.com/MetricProvenance/odgs-mcp-server",
     "source": "github"
   },
-  "version": "0.3.2",
+  "version": "0.3.3",
   "websiteUrl": "https://www.metricprovenance.com/start",
   "packages": [
     {
       "registryType": "pypi",
       "identifier": "odgs-mcp-server",
-      "version": "0.3.2",
+      "version": "0.3.3",
       "transport": {
         "type": "stdio"
       },

@@ -8,4 +8,4 @@ as MCP tools that any AI agent can call at runtime.
     odgs-mcp-server --transport stdio
 """
 
-__version__ = "0.3.2"
+__version__ = "0.3.3"
