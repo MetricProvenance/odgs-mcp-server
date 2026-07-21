@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Add Dockerfile for Glama automated checks. Repo-level addition only — not part of the published PyPI package, no version bump.
+
 ## v0.3.2 — 2026-07-20
 
 ### Docs
