@@ -15,6 +15,12 @@
 > **For compliance and risk officers:** The ODGS engine generates cryptographic audit trails (S-Certs).  
 > **For architectural clearance and certified packs:** [metricprovenance.com/pricing](https://metricprovenance.com/pricing)
 
+### See it in action
+
+[![Watch an AI agent run governance_score through this MCP server](docs/demo/clip_mcp_poster.jpg)](docs/demo/clip_mcp.mp4)
+
+Eight DAMA DMBOK pillars scored in about ten minutes — real MCP server, real maturity engine, click to watch on GitHub.
+
 ---
 
 > [!IMPORTANT]
