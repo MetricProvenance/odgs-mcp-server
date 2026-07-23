@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "odgs-mcp-server"
-version = "0.3.3"
+version = "0.3.4"
 description = "MCP server for ODGS governance enforcement — validate data, compile regulations, generate S-Certs, detect drift."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -73,10 +73,12 @@ packages = ["src/odgs_mcp_server"]
 [tool.hatch.build.targets.sdist]
 # Demo video/poster live in the repo for the README + marketplace listing links,
 # excluded from the published sdist — pure bloat for `pip install`.
+# e2e_test.py is a personal local dev script, not part of the package.
 exclude = [
     "docs/demo/*.mp4",
     "docs/demo/*.jpg",
     "docs/demo/*.png",
+    "e2e_test.py",
 ]
 
 [tool.ruff]

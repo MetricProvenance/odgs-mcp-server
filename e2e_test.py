@@ -6,7 +6,7 @@ from pprint import pprint
 # Set up env for MCP Server configuration
 os.environ["ODGS_API_KEY"] = "sk-test-enterprise-123"
 os.environ["ODGS_REGISTRY_URL"] = "http://127.0.0.1:8080"
-os.environ["ODGS_PROJECT_ROOT"] = "/Users/kartik/Code/open-data-governance-protocol/odgs-v5"
+os.environ["ODGS_PROJECT_ROOT"] = os.environ.get("ODGS_PROJECT_ROOT", os.getcwd())
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("e2e_test")

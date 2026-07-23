@@ -184,9 +184,12 @@ def download_pack(
                     )
                     engine_ready = True
                 for relpath, content in (pack_data.get("sovereign") or {}).items():
-                    # Guard against path traversal from a hostile bundle
+                    # Guard against path traversal from a hostile bundle.
+                    # A string-prefix check here is bypassable (e.g. "../sovereign-evil/x"
+                    # resolves to a sibling dir that still startswith "...sovereign") —
+                    # is_relative_to() checks actual path containment, not string prefix.
                     dest = (cache_path / "sovereign" / relpath).resolve()
-                    if str(dest).startswith(str((cache_path / "sovereign").resolve())):
+                    if dest.is_relative_to((cache_path / "sovereign").resolve()):
                         dest.parent.mkdir(parents=True, exist_ok=True)
                         dest.write_text(
                             content if isinstance(content, str) else json.dumps(content, indent=2)

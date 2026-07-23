@@ -15,7 +15,7 @@ from pathlib import Path
 class ServerConfig:
     """Server configuration resolved from environment + CLI args."""
 
-    # Transport: "stdio" (default, local) or "http" (enterprise)
+    # Transport: "stdio" (default, local) or "sse"
     transport: str = "stdio"
 
     # ODGS project root — where the governance definitions live.
@@ -38,10 +38,6 @@ class ServerConfig:
         "ODGS_CACHE_DIR",
         str(Path.home() / ".odgs" / "cache")
     ))
-
-    # HTTP transport settings (only used when transport="http")
-    http_host: str = "0.0.0.0"
-    http_port: int = 8080
 
     @classmethod
     def from_env(cls) -> ServerConfig:

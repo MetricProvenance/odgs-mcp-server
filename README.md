@@ -4,7 +4,7 @@
 > **Deterministic governance enforcement at the AI agent boundary.**
 
 [![Protocol](https://img.shields.io/badge/Protocol-v6.0.5_(Sovereign_Engine)-0055AA)](https://metricprovenance.com/pricing)
-[![MCP Server](https://img.shields.io/badge/MCP_Server-v0.3.3-blueviolet)](https://modelcontextprotocol.io/)
+[![MCP Server](https://img.shields.io/badge/MCP_Server-v0.3.4-blueviolet)](https://modelcontextprotocol.io/)
 [![PyPI Downloads](https://img.shields.io/pypi/dm/odgs-mcp-server?label=PyPI%20Downloads&color=blue)](https://pypistats.org/packages/odgs-mcp-server)
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/License-Apache_2.0-lightgrey)](LICENSE)
@@ -24,7 +24,7 @@ Eight DAMA DMBOK pillars scored in about ten minutes — real MCP server, real m
 ---
 
 > [!IMPORTANT]
-> **ODGS MCP Server v0.3.3 — Maturity Diagnostics + Certified Pack Access**
+> **ODGS MCP Server v0.3.4 — Maturity Diagnostics + Certified Pack Access**
 > `governance_score` now delegates to the **`odgs-maturity`** 8-pillar DAMA DMBOK engine.
 > Regulatory compilation, drift detection, and catalog synchronisation require a Certified Pack licence.
 > The community tier — validation, scoring, conformance checking — remains open with no registration.
@@ -37,7 +37,7 @@ Eight DAMA DMBOK pillars scored in about ten minutes — real MCP server, real m
 |---|---|
 | **`governance_score`** | Delegates to `odgs-maturity` (8-pillar DAMA DMBOK) when installed; falls back to built-in heuristic. Returns 0–100 score with per-pillar gap analysis. |
 | **AuthGate** | Community / Professional / Enterprise access via API key validation. 24h disk cache; `workspace.yaml` fallback for air-gapped deployments. |
-| **Licensed tools** | `compile_regulation`, `check_drift`, `detect_conflicts`, `narrate_audit`, `discover_bindings` (Professional); `sync_catalog`, `harvest_sovereign_rules` (Enterprise). |
+| **Licensed tools** | `compile_regulation`, `check_drift`, `detect_conflicts`, `narrate_audit`, `discover_bindings` (Professional); `harvest_sovereign_rules` (Enterprise). |
 
 > The European Data Governance Maturity Benchmark 2026 recorded an average maturity of **37.6%** across 99 enterprises — a **62.4% gap** against current regulatory expectation. `governance_score` applies the same assessment methodology to your project.
 
@@ -141,7 +141,7 @@ Regulatory compilation, certified packs, and catalog synchronisation require a C
 | **Professional** | €2,490/yr | All certified packs, priority re-signing on regulatory change |
 | **Consultant** | €4,990/yr | Professional + white-label / client-deliverable rights |
 
-*Enterprise deployments (Sovereign CA nodes, `sync_catalog`, `harvest_sovereign_rules`) via [certified partners](https://metricprovenance.com/pricing).*
+*Enterprise deployments (Sovereign CA nodes, `harvest_sovereign_rules`) via [certified partners](https://metricprovenance.com/pricing).*
 
 ---
 
@@ -169,8 +169,7 @@ Regulatory compilation, certified packs, and catalog synchronisation require a C
 ### Enterprise (API Key Required)
 | Tool | Description |
 |:---|:---|
-| `harvest_sovereign_rules` | (Flint Bridge) Automatically extract and mint rules from data stores |
-| `sync_catalog` | Pull metadata from Databricks / Snowflake / Collibra |
+| `harvest_sovereign_rules` | (Flint Bridge) Automatically extract and mint rules from data stores — **preview**, pending verification against the harvester interface |
 
 ---
 

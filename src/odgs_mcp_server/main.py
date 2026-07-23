@@ -128,7 +128,7 @@ def validate_batch(
         project_root: Path to ODGS project root. Defaults to $ODGS_PROJECT_ROOT or cwd.
         fail_fast: Stop on first failure if True.
     """
-    gate_error = _check_tier("validate_payload")
+    gate_error = _check_tier("validate_batch")
     if gate_error:
         return gate_error
 
@@ -176,7 +176,7 @@ def download_pack(
     Args:
         pack_id: The ID of the pack to download (e.g., "eu-ai-act", "sample-pack").
     """
-    gate_error = _check_tier("compile_regulation") # Requires Pro tier
+    gate_error = _check_tier("download_pack") # Requires Pro tier
     if gate_error:
         return gate_error
 

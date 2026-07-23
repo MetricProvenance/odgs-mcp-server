@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.3.4 — 2026-07-23
+
+### Fixed
+
+- **`sync_catalog` was documented, tier-gated, and tested but never registered as an MCP tool.** Any client calling it got a generic "unknown tool" MCP error, not the licence-upgrade message the docs implied existed. Removed all references (README, `TOOL_TIERS`) rather than ship a stub for a feature that was never actually built.
+- **`odgs://status` reported inaccurate tool counts.** `TOOL_TIERS` was missing two real, registered tools (`validate_batch`, `download_pack` — previously gated indirectly by borrowing `validate_payload`'s and `compile_regulation`'s tier checks) and included the phantom `sync_catalog`. Both tools now have their own entries and their own `_check_tier()` calls.
+- **`download_pack`'s path-traversal guard used a bypassable string-prefix check** (`str(dest).startswith(...)`), which a crafted relative path like `../sovereign-evil/x.json` could defeat. Replaced with `Path.is_relative_to()`, which checks actual path containment.
+- **`harvest_sovereign_rules` marked as preview** in the README and in-code — it calls a private `odgs_commercial` API this repo can't verify against in its own test environment.
+- Removed a stale comment describing a nonexistent `"http"` transport (only `"stdio"`/`"sse"` are implemented) and two unused `ServerConfig` fields (`http_host`, `http_port`) that implied HTTP transport support that doesn't exist yet.
+- `e2e_test.py` — a personal local dev script with a hardcoded developer-machine path — was shipping in the published PyPI sdist. Excluded from the sdist and the hardcoded path replaced with an environment-variable read.
+
+Verified: full test suite passes (48 passed, no change from baseline).
+
 ## v0.3.3 — 2026-07-21
 
 ### Fixed

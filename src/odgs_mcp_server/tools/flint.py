@@ -46,12 +46,10 @@ def harvest_sovereign_rules(
         if not harvester:
             return {"success": False, "error": f"Harvester type '{harvester_type}' not found."}
 
-        # Mock integration for now since we're interacting with the harvester interface
-        # Actual signature of harvester depends on odgs_commercial
-        
-        # Suppose the harvester has a `harvest()` or `extract()` method.
-        # This is a safe wrapper that handles basic operations.
-        
+        # PREVIEW / UNVERIFIED: odgs_commercial is a private package not available in
+        # this (open-source) repo's test environment, so this call site can't be
+        # exercised against the real harvester interface here. Treat this tool as
+        # preview-quality until it's verified against an actual odgs_commercial build.
         result = harvester.harvest(text=source_text, url=source_url)
         return {
             "success": True,

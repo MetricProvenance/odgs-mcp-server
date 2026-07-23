@@ -48,7 +48,7 @@ class TestAccessControl:
 
     def test_community_cannot_access_enterprise_tools(self):
         gate = AuthGate(api_key=None)
-        assert gate.check_access("sync_catalog") is False
+        assert gate.check_access("harvest_sovereign_rules") is False
 
     def test_unknown_tool_requires_enterprise(self):
         gate = AuthGate(api_key=None)
@@ -73,7 +73,7 @@ class TestUpgradeMessage:
 
     def test_upgrade_message_shows_current_tier(self):
         gate = AuthGate(api_key=None)
-        msg = gate.upgrade_message("sync_catalog")
+        msg = gate.upgrade_message("harvest_sovereign_rules")
         assert "community" in msg
         # Should mention partner route not SaaS pricing
         assert "partner" in msg.lower() or "partner@metricprovenance.com" in msg

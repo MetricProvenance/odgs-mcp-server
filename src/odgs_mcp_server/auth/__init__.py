@@ -2,9 +2,9 @@
 Auth gate — controls tool access based on API key tier.
 
 Tiers:
-- community (no key): validate_payload, list_packs, governance_score, conformance_check
-- pro (API key): + compile_regulation, check_drift, detect_conflicts, narrate_audit, discover_bindings
-- enterprise (API key): + sync_catalog
+- community (no key): validate_payload, validate_batch, list_packs, governance_score, conformance_check
+- pro (API key): + compile_regulation, download_pack, check_drift, detect_conflicts, narrate_audit, discover_bindings
+- enterprise (API key): + harvest_sovereign_rules
 """
 
 from __future__ import annotations
@@ -21,17 +21,18 @@ logger = logging.getLogger(__name__)
 TOOL_TIERS: dict[str, str] = {
     # Community (free)
     "validate_payload": "community",
+    "validate_batch": "community",
     "list_packs": "community",
     "governance_score": "community",
     "conformance_check": "community",
     # Pro
     "compile_regulation": "pro",
+    "download_pack": "pro",
     "check_drift": "pro",
     "detect_conflicts": "pro",
     "narrate_audit": "pro",
     "discover_bindings": "pro",
     # Enterprise
-    "sync_catalog": "enterprise",
     "harvest_sovereign_rules": "enterprise",
 }
 
