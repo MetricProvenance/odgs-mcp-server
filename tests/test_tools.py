@@ -2,7 +2,7 @@
 
 Tests cover both scoring paths:
 - Fallback (built-in 4-category heuristic) — the default for all users
-- Maturity engine (8-pillar DAMA framework) — when odgs-maturity is installed
+- Maturity engine (8-pillar ISO/IEC 38505-1 & 25012 framework) — when odgs-maturity is installed
 
 The fallback path is always tested. The maturity engine path is tested
 only when odgs-maturity is importable (dev environment).

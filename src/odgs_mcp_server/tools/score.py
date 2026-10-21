@@ -43,7 +43,7 @@ def governance_score(
     Returns:
         Dict with:
         - score (int): 0-100 governance maturity score.
-        - level (str): DAMA maturity level label.
+        - level (str): ISO/IEC 38505-1 & 25012 maturity level label.
         - grade (str): Letter grade (A-F).
         - findings (list): Specific findings with recommendations.
         - breakdown (dict): Score breakdown by pillar.
@@ -68,7 +68,7 @@ def _score_via_maturity_engine(root: Path, tier: str = "community") -> dict[str,
 
     This is the authoritative scoring path. The maturity engine reads
     the workspace artifacts and produces a deterministic 8-pillar
-    assessment aligned with DAMA DMBOK.
+    assessment aligned with ISO/IEC 38505-1 and ISO/IEC 25012.
     """
     from odgs_maturity.scoring.engine import score_workspace
     from odgs_maturity.workspace.reader import WorkspaceReader

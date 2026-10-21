@@ -1,6 +1,6 @@
 # ODGS Partner Programme
 
-> Certified Regulation Packs are **self-serve** at [metricprovenance.com/pricing](https://metricprovenance.com/pricing). Enterprise certification, Sovereign CA nodes, and implementation engagements are delivered through verified partner firms.
+> Certified Regulation Packs and Enterprise Pilots are available via [metricprovenance.com/pricing](https://metricprovenance.com/pricing). Enterprise certification, Sovereign CA nodes, and implementation engagements are delivered through verified partner firms.
 > This document explains who the right partner looks like, what the commercial model is, and how to apply.
 
 ---

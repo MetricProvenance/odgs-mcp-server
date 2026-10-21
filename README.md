@@ -3,7 +3,7 @@
 
 > **Deterministic governance enforcement at the AI agent boundary.**
 
-[![Protocol](https://img.shields.io/badge/Protocol-v6.0.5_(Sovereign_Engine)-0055AA)](https://metricprovenance.com/pricing)
+[![Protocol](https://img.shields.io/badge/Protocol-v6.1.0-0055AA)](https://metricprovenance.com/pricing)
 [![MCP Server](https://img.shields.io/badge/MCP_Server-v0.3.4-blueviolet)](https://modelcontextprotocol.io/)
 [![PyPI Downloads](https://img.shields.io/pypi/dm/odgs-mcp-server?label=PyPI%20Downloads&color=blue)](https://pypistats.org/packages/odgs-mcp-server)
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
@@ -19,13 +19,13 @@
 
 [![Watch an AI agent run governance_score through this MCP server](docs/demo/clip_mcp_poster.jpg)](docs/demo/clip_mcp.mp4)
 
-Eight DAMA DMBOK pillars scored in about ten minutes — real MCP server, real maturity engine, click to watch on GitHub.
+Eight ISO/IEC 38505-1 & ISO/IEC 25012 pillars scored in about ten minutes — real MCP server, real maturity engine, click to watch on GitHub.
 
 ---
 
 > [!IMPORTANT]
 > **ODGS MCP Server v0.3.4 — Maturity Diagnostics + Certified Pack Access**
-> `governance_score` now delegates to the **`odgs-maturity`** 8-pillar DAMA DMBOK engine.
+> `governance_score` now delegates to the **`odgs-maturity`** 8-pillar ISO/IEC 38505-1 & ISO/IEC 25012 engine.
 > Regulatory compilation, drift detection, and catalog synchronisation require a Certified Pack licence.
 > The community tier — validation, scoring, conformance checking — remains open with no registration.
 
@@ -35,7 +35,7 @@ Eight DAMA DMBOK pillars scored in about ten minutes — real MCP server, real m
 
 | Change | Detail |
 |---|---|
-| **`governance_score`** | Delegates to `odgs-maturity` (8-pillar DAMA DMBOK) when installed; falls back to built-in heuristic. Returns 0–100 score with per-pillar gap analysis. |
+| **`governance_score`** | Delegates to `odgs-maturity` (8-pillar ISO/IEC 38505-1 & ISO/IEC 25012) when installed; falls back to built-in heuristic. Returns 0–100 score with per-pillar gap analysis. |
 | **AuthGate** | Community / Professional / Enterprise access via API key validation. 24h disk cache; `workspace.yaml` fallback for air-gapped deployments. |
 | **Licensed tools** | `compile_regulation`, `check_drift`, `detect_conflicts`, `narrate_audit`, `discover_bindings` (Professional); `harvest_sovereign_rules` (Enterprise). |
 
@@ -60,7 +60,7 @@ Certified Sovereign Packs and the S-Cert Registry are available through Metric P
 ## Capabilities
 
 - **Runtime validation:** Data payloads are evaluated against sovereign governance rules at call time; each evaluation produces a signed S-Cert.
-- **Governance maturity scoring:** 8-pillar DAMA DMBOK assessment (0–100) with per-pillar gap analysis, aligned to the European Governance Maturity Benchmark methodology.
+- **Governance maturity scoring:** 8-pillar ISO/IEC 38505-1 & ISO/IEC 25012 assessment (0–100) with per-pillar gap analysis, aligned to the European Governance Maturity Benchmark methodology.
 - **Regulatory compilation** *(licensed)*: Converts legislative text — EU AI Act, DORA, GDPR — into validated ODGS rule JSON.
 - **Semantic drift detection** *(licensed)*: Identifies definitional drift between governance artefacts across versions.
 - **Enterprise catalog integration** *(licensed)*: Harvests and mints sovereign rules from Databricks, Snowflake, and Collibra via the Flint Bridge.
@@ -132,16 +132,12 @@ Regulatory compilation, certified packs, and catalog synchronisation require a C
   "ODGS_PROJECT_ROOT": "/path/to/your/odgs/project"
 }
 ```
-**Licences are self-serve** — buy at [metricprovenance.com/pricing](https://metricprovenance.com/pricing) and your key is emailed on purchase:
+**Enterprise Rollout & Certified Packs** — see [metricprovenance.com/pricing](https://metricprovenance.com/pricing) or read the [Executive Brief](https://metricprovenance.com/executive-brief):
 
-| Tier | Price | Includes |
+| Edition | Scope | Includes |
 |:---|:---|:---|
-| **Community** | Free | `validate_payload`, `governance_score`, `list_packs`, `conformance_check` — no registration |
-| **Team** | €990/yr | One certified regulation pack, signed + updated, plus all Professional tools |
-| **Professional** | €2,490/yr | All certified packs, priority re-signing on regulatory change |
-| **Consultant** | €4,990/yr | Professional + white-label / client-deliverable rights |
-
-*Enterprise deployments (Sovereign CA nodes, `harvest_sovereign_rules`) via [certified partners](https://metricprovenance.com/pricing).*
+| **Open-Source Core** | Free (Apache 2.0) | `validate_payload`, `governance_score`, `list_packs`, `conformance_check` — no registration |
+| **Production Pilot & Air-Gapped Hub** | Enterprise Rollout | Signed `.odgs-bundle` Regulation Packs (EU AI Act, DORA, CSRD), Policy Studio, and Catalog Sync |
 
 ---
 
@@ -153,7 +149,7 @@ Regulatory compilation, certified packs, and catalog synchronisation require a C
 | `validate_payload` | Validate data against ODGS governance rules, produce S-Cert |
 | `validate_batch` | Validate multiple payloads in one call |
 | `list_packs` | List available Certified Regulation Packs |
-| `governance_score` | Score governance maturity (0–100) across 8 DAMA pillars with gap analysis |
+| `governance_score` | Score governance maturity (0–100) across 8 ISO/IEC 38505-1 & 25012 pillars with gap analysis |
 | `conformance_check` | Run ODGS conformance self-check (L1/L2) |
 
 ### Professional (API Key Required)
@@ -184,7 +180,7 @@ flowchart TB
     subgraph "ODGS MCP Server"
         Auth[AuthGate]
         Val[OdgsInterceptor v6]
-        Maturity[odgs-maturity\n8-pillar DAMA]
+        Maturity[odgs-maturity\n8-pillar ISO 38505/25012]
         LLM[OdgsLlmBridge]
         Flint[Flint Bridge]
     end
@@ -240,7 +236,7 @@ Cryptographically signed rule bundles, each mapped to a specific regulatory inst
 
 The Open Data Governance Standard (ODGS) is an open protocol for deterministic data governance enforcement. ODGS is on a path toward formal standardization.
 
-- [Protocol specification](https://github.com/MetricProvenance/odgs) — `pip install odgs`
+- [Protocol specification](https://github.com/MetricProvenance/odgs-protocol) — `pip install odgs`
 - [PyPI package](https://pypi.org/project/odgs-mcp-server/)
 - [Research paper (SSRN 6205478)](https://papers.ssrn.com/abstract=6205478)
 - [Metric Provenance](https://metricprovenance.com/pricing)

@@ -59,7 +59,7 @@ def validate_payload(
             "s_cert": None,
             "error": (
                 "The `odgs` package is not installed. "
-                "Install it with: pip install odgs>=6.0.0"
+                "Install it with: pip install odgs>=6.1.0"
             ),
         }
 
