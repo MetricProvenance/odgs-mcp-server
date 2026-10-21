@@ -3,7 +3,7 @@
 
 > **Deterministic governance enforcement at the AI agent boundary.**
 
-[![Protocol](https://img.shields.io/badge/Protocol-v6.1.0-0055AA)](https://metricprovenance.com/pricing)
+[![Protocol](https://img.shields.io/badge/Protocol-v6.1.0-0055AA)](https://metricprovenance.com/#suite)
 [![MCP Server](https://img.shields.io/badge/MCP_Server-v0.3.4-blueviolet)](https://modelcontextprotocol.io/)
 [![PyPI Downloads](https://img.shields.io/pypi/dm/odgs-mcp-server?label=PyPI%20Downloads&color=blue)](https://pypistats.org/packages/odgs-mcp-server)
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
@@ -13,7 +13,7 @@
 
 > **For engineers:** See [Quick Start](#quick-start) below, or the guided walkthrough at [metricprovenance.com/start](https://www.metricprovenance.com/start).  
 > **For compliance and risk officers:** The ODGS engine generates cryptographic audit trails (S-Certs).  
-> **For architectural clearance and certified packs:** [metricprovenance.com/pricing](https://metricprovenance.com/pricing)
+> **For architectural clearance and certified packs:** [metricprovenance.com/#suite](https://metricprovenance.com/#suite)
 
 ### See it in action
 
@@ -53,7 +53,7 @@ This is the bridge between probabilistic AI inference and deterministic governan
 
 Organisations operating High-Risk AI Systems under **EU AI Act Articles 10 and 12** require demonstrable, auditable data governance at the pipeline level. S-Certs provide that audit trail in a format suitable for regulatory submission.
 
-Certified Sovereign Packs and the S-Cert Registry are available through Metric Provenance certified implementation partners. For architectural assessment: [metricprovenance.com/pricing](https://metricprovenance.com/pricing).
+Certified Sovereign Packs and the S-Cert Registry are available through Metric Provenance certified implementation partners. For architectural assessment: [metricprovenance.com/#suite](https://metricprovenance.com/#suite).
 
 ---
 
@@ -132,7 +132,7 @@ Regulatory compilation, certified packs, and catalog synchronisation require a C
   "ODGS_PROJECT_ROOT": "/path/to/your/odgs/project"
 }
 ```
-**Enterprise Rollout & Certified Packs** — see [metricprovenance.com/pricing](https://metricprovenance.com/pricing) or read the [Executive Brief](https://metricprovenance.com/executive-brief):
+**Enterprise Rollout & Certified Packs** — see [metricprovenance.com/#suite](https://metricprovenance.com/#suite) or read the [Executive Brief](https://metricprovenance.com/executive-brief):
 
 | Edition | Scope | Includes |
 |:---|:---|:---|
@@ -217,7 +217,7 @@ Cryptographically signed rule bundles, each mapped to a specific regulatory inst
 | **NIS2** | Network and Information Security Directive | ✅ Certified |
 | **Basel III** | Basel Committee on Banking Supervision | ✅ Certified |
 
-*Full catalogue of 15+ packs. Licensing and deployment via [metricprovenance.com/pricing](https://metricprovenance.com/pricing).*
+*Full catalogue of 15+ packs. Licensing and deployment via [metricprovenance.com/#suite](https://metricprovenance.com/#suite).*
 
 ---
 
@@ -239,7 +239,7 @@ The Open Data Governance Standard (ODGS) is an open protocol for deterministic d
 - [Protocol specification](https://github.com/MetricProvenance/odgs-protocol) — `pip install odgs`
 - [PyPI package](https://pypi.org/project/odgs-mcp-server/)
 - [Research paper (SSRN 6205478)](https://papers.ssrn.com/abstract=6205478)
-- [Metric Provenance](https://metricprovenance.com/pricing)
+- [Metric Provenance](https://metricprovenance.com/#suite)
 
 ## Licence
 

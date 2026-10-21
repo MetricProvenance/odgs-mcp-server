@@ -114,8 +114,8 @@ def list_packs(
         "packs": packs,
         "total": len(packs),
         "installed": sum(1 for p in packs if p["installed"]),
-        "access_url": "https://metricprovenance.com/pricing",
-        "licence_note": "Certified Packs are issued via Metric Provenance partners. To request access, visit metricprovenance.com/pricing",
+        "access_url": "https://metricprovenance.com/#suite",
+        "licence_note": "Certified Packs are issued via Metric Provenance partners. To request access, visit metricprovenance.com/#suite",
     }
 
 

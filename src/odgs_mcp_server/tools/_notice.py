@@ -51,7 +51,7 @@ def certification_notice(score: int | None = None, tier: str = "community") -> s
     base += (
         "\n"
         "For certified compliance artefacts and partner deployment:\n"
-        "→ metricprovenance.com/pricing\n"
+        "→ metricprovenance.com/#suite\n"
         "─────────────────────────────────────────────────────────────────"
     )
     return base

@@ -103,7 +103,7 @@ class AuthGate:
             f"Certified Packs are issued through verified "
             f"Metric Provenance partners.\n\n"
             f"→ Request access and certified pack licensing:\n"
-            f"  https://metricprovenance.com/pricing\n\n"
+            f"  https://metricprovenance.com/#suite\n\n"
             f"If your organisation already has a licence, set your key:\n"
             f"  export ODGS_API_KEY=sk-odgs-...\n"
             f"  # or in your MCP client config"
