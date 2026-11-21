@@ -5,8 +5,8 @@ build-backend = "hatchling.build"
 
 [project]
 name = "odgs-mcp-server"
-version = "0.4.0"
-description = "MCP server for ODGS governance enforcement — validate data, compile regulations, generate S-Certs, detect drift."
+version = "0.4.1"
+description = "MCP server for ODGS governance enforcement — validate data, compile regulations, issue signed Semantic Certificates, detect drift."
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "Apache-2.0"}
@@ -32,7 +32,7 @@ classifiers = [
 ]
 
 dependencies = [
-    "mcp>=1.0.0",
+    "mcp>=1.0.0,<2.0.0",
     "odgs>=6.1.0",
     "httpx>=0.25.0",
     "pydantic>=2.0.0",

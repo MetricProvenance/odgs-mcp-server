@@ -6,7 +6,7 @@
 [![ODGS MCP server](https://mcprush.com/badge/odgs-mcp/card.svg)](https://mcprush.com/to/odgs-mcp?ref=badge)
 
 [![Protocol](https://img.shields.io/badge/Protocol-v6.1.0-0055AA)](https://www.metricprovenance.com/start)
-[![MCP Server](https://img.shields.io/badge/MCP_Server-v0.4.0-blueviolet)](https://modelcontextprotocol.io/)
+[![MCP Server](https://img.shields.io/badge/MCP_Server-v0.4.1-blueviolet)](https://modelcontextprotocol.io/)
 [![PyPI Downloads](https://img.shields.io/pypi/dm/odgs-mcp-server?label=PyPI%20Downloads&color=blue)](https://pypistats.org/packages/odgs-mcp-server)
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18564270.svg)](https://doi.org/10.5281/zenodo.18564270)
@@ -28,8 +28,8 @@ Eight ISO/IEC 38505-1 & ISO/IEC 25012 pillars scored locally — real MCP server
 ---
 
 > [!IMPORTANT]
-> **ODGS MCP Server v0.4.0 — Open-Source Community Tier + Certified Packs**
-> The community tier — `validate_payload`, `validate_batch`, `governance_score`, `conformance_check`, `list_packs`, and `server_status` — is **Apache 2.0 and completely free with no registration**.
+> **ODGS MCP Server v0.4.1 — Open-Source Community Tier + Certified Packs**
+> The community tier — `validate_payload`, `validate_batch`, `governance_score`, `conformance_check`, `list_packs`, plus the `odgs://status` resource — is **Apache 2.0 and completely free with no registration**.
 > Regulatory compilation, semantic drift detection, and enterprise catalog synchronisation require a Metric Provenance Certified Pack licence.
 
 ---
@@ -110,7 +110,8 @@ Add to `claude_desktop_config.json`:
 | `governance_score` | Score governance maturity (0–100) across 8 ISO/IEC 38505-1 & 25012 pillars with per-pillar gap analysis |
 | `conformance_check` | Run ODGS L1/L2 protocol conformance self-check |
 | `list_packs` | List available Certified Regulation Packs |
-| `server_status` | Return active server version, tier, installed engines, and project root diagnostics |
+
+> **MCP Resources:** Read `odgs://status` for active server version, tier, installed engines, and project root diagnostics.
 
 ### Professional (API Key Required)
 | Tool | Description |

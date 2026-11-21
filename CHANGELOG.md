@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.1 — 2026-11-21
+
+### Fixed
+
+- **Pinned `mcp>=1.0.0,<2.0.0` in `pyproject.toml`.** The `mcp` Python SDK 2.x removed `mcp.server.fastmcp.FastMCP` (renamed to `MCPServer`), causing fresh `pip install odgs-mcp-server` installs to fail at import time when pip resolved `mcp>=2.0`. Capping `mcp<2.0.0` restores zero-friction installs across `pip`, `uv`, and Claude Code.
+- **Docs:** Documented `odgs://status` accurately as an MCP Resource rather than a callable tool, updated package description to use **Semantic Certificates**, and added the MCPRUSH Grade A badge.
+
 ## v0.3.4 — 2026-07-23
 
 ### Fixed
