@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.2 — 2026-11-24
+
+### Fixed
+
+- **Added missing `"pyyaml>=6.0"` runtime dependency in `pyproject.toml`.** Offline license verification (`AuthGate._validate_offline()`) imports `yaml` to read `odgs.yaml`; declaring it explicitly prevents silent fallback to community tier in minimal virtual environments.
+- **`discover_bindings` `mapped_count` calculation (`tools/discover.py`):** Count `"bindings"` (matching `odgs-llm-bridge`'s `BINDING_SCHEMA`) with fallback to `"mappings"`, instead of always returning `0`.
+- **`check_drift` `stale_count` calculation (`tools/drift.py`):** Count warnings with `"status"` in `("STALE", "EXPIRED")` (matching `odgs-llm-bridge`'s `DRIFT_WARNING_SCHEMA`, with backwards-compatible fallback for `"severity"`), instead of always returning `0`.
+
 ## v0.4.1 — 2026-11-21
 
 ### Fixed

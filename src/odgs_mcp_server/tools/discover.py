@@ -50,7 +50,7 @@ def discover_bindings(
         bridge = OdgsLlmBridge(provider=provider)
         bindings = bridge.discover_bindings(catalog_metadata, metrics=metrics)
 
-        mapped_count = len(bindings.get("mappings", []))
+        mapped_count = len(bindings.get("bindings", bindings.get("mappings", [])))
         return {
             "bindings": bindings,
             "mapped_count": mapped_count,

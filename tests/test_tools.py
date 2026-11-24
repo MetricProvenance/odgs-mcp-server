@@ -220,3 +220,49 @@ class TestListPacks:
         for pack in result["packs"]:
             assert "tier_required" in pack
             assert "installed" in pack
+
+
+class TestV042Regressions:
+    def test_discover_bindings_counts_bindings_key(self, monkeypatch):
+        import sys
+        from types import SimpleNamespace
+        from odgs_mcp_server.tools.discover import discover_bindings
+
+        class FakeBridge:
+            def __init__(self, provider=None):
+                pass
+
+            def discover_bindings(self, catalog_metadata, metrics=None):
+                return {
+                    "bindings": [
+                        {"metric_urn": "urn:odgs:metric:fin:rev", "physical_source": {}},
+                        {"metric_urn": "urn:odgs:metric:fin:ebitda", "physical_source": {}},
+                    ]
+                }
+
+        monkeypatch.setitem(sys.modules, "odgs_llm", SimpleNamespace(OdgsLlmBridge=FakeBridge))
+        result = discover_bindings({"tables": []})
+        assert result["error"] is None
+        assert result["mapped_count"] == 2
+
+    def test_check_drift_counts_stale_and_expired_status(self, monkeypatch):
+        import sys
+        from types import SimpleNamespace
+        from odgs_mcp_server.tools.drift import check_drift
+
+        class FakeBridge:
+            def __init__(self, provider=None):
+                pass
+
+            def check_drift(self, definitions_dir, threshold_days=90):
+                return [
+                    {"file": "a.json", "status": "STALE"},
+                    {"file": "b.json", "status": "EXPIRED"},
+                    {"file": "c.json", "status": "CURRENT"},
+                ]
+
+        monkeypatch.setitem(sys.modules, "odgs_llm", SimpleNamespace(OdgsLlmBridge=FakeBridge))
+        result = check_drift("/tmp/defs", threshold_days=90)
+        assert result["error"] is None
+        assert result["scanned_count"] == 3
+        assert result["stale_count"] == 2

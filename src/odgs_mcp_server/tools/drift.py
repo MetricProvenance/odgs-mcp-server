@@ -52,7 +52,12 @@ def check_drift(
         return {
             "warnings": warnings,
             "scanned_count": len(warnings),
-            "stale_count": sum(1 for w in warnings if w.get("severity") in ("HIGH", "CRITICAL")),
+            "stale_count": sum(
+                1
+                for w in warnings
+                if w.get("status") in ("STALE", "EXPIRED")
+                or w.get("severity") in ("HIGH", "CRITICAL")
+            ),
             "threshold_days": threshold_days,
             "error": None,
         }
